@@ -27,15 +27,15 @@ services:
 
   db:
     image: mysql:8.0
-    container_name: laravel_mysql_db
+    container_name: laravel_db
     volumes:
       - dbdata:/var/lib/mysql
     networks:
       - laravel_network
     environment:
-      MYSQL_ROOT_PASSWORD: MySpofityTaste
+      MYSQL_ROOT_PASSWORD: mySpotifyTasteRoot
       MYSQL_DATABASE: myTaste
-      MYSQL_USER: root
+      MYSQL_USER: admin
       MYSQL_PASSWORD: MySpofityTaste
 
 networks:
