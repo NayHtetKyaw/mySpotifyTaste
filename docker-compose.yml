@@ -34,10 +34,10 @@ services:
     networks:
       - laravel_network
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: my-spotify-taste
-      MYSQL_USER: admin 
-      MYSQL_PASSWORD: myspotifytaste
+      MYSQL_ROOT_PASSWORD: DB_ROOT_PASSWORD
+      MYSQL_DATABASE: DB_DATABASE
+      MYSQL_USER: DB_USERNAME
+      MYSQL_PASSWORD: DB_PASSWORD
 
 networks:
   laravel_network:
