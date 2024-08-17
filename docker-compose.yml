@@ -1,5 +1,8 @@
 services:
   app:
+    build: 
+      context: . 
+      dockerfile: Dockerfile
     image: php:8.2-fpm
     container_name: laravel_app
     working_dir: /var/www/html
@@ -31,10 +34,10 @@ services:
     networks:
       - laravel_network
     environment:
-      MYSQL_ROOT_PASSWORD: DB_ROOT_PASSWORD
-      MYSQL_DATABASE: DB_DATABASE
-      MYSQL_USER: DB_USERNAME 
-      MYSQL_PASSWORD: DB_PASSWORD
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: my-spotify-taste
+      MYSQL_USER: admin 
+      MYSQL_PASSWORD: myspotifytaste
 
 networks:
   laravel_network:
