@@ -20,6 +20,8 @@ COPY . /var/www/html
 
 # Set appropriate permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html
 
 # Expose port 9000
 EXPOSE 9000
