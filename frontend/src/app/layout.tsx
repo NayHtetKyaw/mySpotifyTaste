@@ -2,10 +2,11 @@ import { ApplicationShell } from "@/components/core/AppShell";
 import { ColorSchemeScript, MantineProvider, createTheme } from "@mantine/core";
 import type { Metadata } from "next";
 import "./globals.css";
+import '@mantine/core/styles.css';
 
 export const metadata: Metadata = {
 	title: "My Spotify Taste",
-	description: "A web application that visualizes your Spotify listening history & stats.",
+	// description: "A web application that visualizes your Spotify listening history & stats.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {

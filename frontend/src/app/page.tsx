@@ -12,6 +12,7 @@ export default function HomePage(): JSX.Element {
       </Text>
     
       <Title order={2}>Get Started</Title>
+      <Button> hi</Button>
     </Container>
   );  
 }
