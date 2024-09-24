@@ -1,16 +1,13 @@
-import {
-    AppShell,
-    Burger,
-    NavLink,
-    Flex,
-    LoadingOverlay,
-} from "@mantine/core";
+import { AppShell, Burger, NavLink, Flex, Title, Button } from "@mantine/core";
 import Link from "next/link";
 import Image from "next/image";
 
 interface ApplicationHeaderProps {
     opened: boolean;
     toggle: () => void;
+    isLoggedIn: boolean;
+    onLogin: () => void;
+    onLogout: () => void;
 }
 
 export interface NavigationItem {
@@ -48,8 +45,8 @@ function Logo({ link, src, alt, isRounded = false }: LogoProps) {
 
 export const navigationItems: NavigationItem[] = [
     {
-        title: "Home",
-        href: "/",
+        title: "About us",
+        href: "/about",
         // icon: <DashboardIcon />
     },
     {
@@ -57,21 +54,19 @@ export const navigationItems: NavigationItem[] = [
         href: "/profile",
         // icon: <ProfileIcon />
     },
-    {
-        title: "Settings",
-        href: "/settings",
-        // icon: <SettingsIcon />
-    },
 ];
 
 export default function ApplicationHeader({
     opened,
     toggle,
+    isLoggedIn,
+    onLogin,
+    onLogout,
 }: ApplicationHeaderProps) {
     return (
         <AppShell.Header p="sm">
             <Flex align="center" h="100%">
-                <div className="container relative max-auto h-full">
+                <div className="w-full relative max-auto h-full">
                     <div className="flex h-full flex-row items-center">
                         <Burger
                             opened={opened}
@@ -84,7 +79,15 @@ export default function ApplicationHeader({
                             src="/assets/images/myspotifytaste-logo.png"
                             alt="My Spotify Taste"
                         />
+                        <Title order={3} className="min-w-56 text-sm md:text-lg lg:text-lg">
+                            「My Spotify Taste」
+                        </Title>
                         <Navigation items={navigationItems} />
+                        <LoginButton
+                            isLoggedIn={isLoggedIn}
+                            onLogin={onLogin}
+                            onLogout={onLogout}
+                        /> 
                     </div>
                 </div>
             </Flex>
@@ -94,7 +97,7 @@ export default function ApplicationHeader({
 
 function Navigation({ items }: { items: NavigationItem[] }) {
     return (
-        <div className="ml-10 hidden h-full w-full flex row items-center gap-x-4 lg:flex">
+        <div className="ml-10 hidden h-full w-full flex row justify-end gap-x-4 lg:flex">
             {items.map((item) => (
                 <div
                     key={"navitem" + item.title}
@@ -123,5 +126,21 @@ function NormalNavLink({
             target={isExternal ? "_blank" : "_self"}
             className="rounded-sm no-underline"
         />
+    );
+}
+
+export function LoginButton({ isLoggedIn, onLogin, onLogout }: { isLoggedIn: boolean; onLogin: () => void; onLogout: () => void }) {
+    return (
+        <div className="hidden lg:ml-10 lg:mr-10 lg:inline w-fit">
+            {isLoggedIn ? (
+                <Button onClick={onLogout} variant="filled" color="green" radius={20}>
+                    Logout
+                </Button>
+            ) : (
+                <Button onClick={onLogin} variant="filled" color="green" radius={20}>
+                    Login with spotify
+                </Button>
+            )}
+        </div>
     );
 }
