@@ -27,9 +27,7 @@ interface LogoProps {
 function Logo({ link, src, alt, isRounded = false }: LogoProps) {
     return (
         <div
-            className={`relative ${
-                isRounded ? "aspect-square" : "aspect-[1.2]"
-            } h-full ml-16`}
+            className="relative aspect-[1.2] h-full lg:ml-10 ml-2.5"
         >
             <Link href={link}>
                 <Image
@@ -66,7 +64,7 @@ export default function ApplicationHeader({
     return (
         <AppShell.Header p="sm">
             <Flex align="center" h="100%">
-                <div className="w-full relative max-auto h-full">
+                <div className="w-full max-auto h-full">
                     <div className="flex h-full flex-row items-center">
                         <Burger
                             opened={opened}
@@ -79,8 +77,8 @@ export default function ApplicationHeader({
                             src="/assets/images/myspotifytaste-logo.png"
                             alt="My Spotify Taste"
                         />
-                        <Title order={3} className="min-w-56 text-sm md:text-lg lg:text-lg">
-                            「My Spotify Taste」
+                        <Title order={3} className="min-w-56 text-md md:text-xl">
+                            『My Spotify Taste』
                         </Title>
                         <Navigation items={navigationItems} />
                         <LoginButton
