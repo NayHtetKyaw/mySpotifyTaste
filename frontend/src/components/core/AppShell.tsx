@@ -2,8 +2,8 @@
 
 import { AppShell } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-// import ApplicationHeader from "./application-header";
-// import ApplicationNavbar from "./application-navbar";
+import ApplicationHeader from "./ApplicationHeader";
+import { ApplicationNavigation } from "./ApplicationNavigation";
 
 export function ApplicationShell({ children }: { children: React.ReactNode }): JSX.Element {
 	const [opened, { toggle }] = useDisclosure();
@@ -18,8 +18,8 @@ export function ApplicationShell({ children }: { children: React.ReactNode }): J
 			}}
 			padding="md"
 		>
-			{/* <ApplicationHeader opened={opened} toggle={toggle} />
-			<ApplicationNavbar opened={opened} toggle={toggle} /> */}
+			<ApplicationHeader opened={opened} toggle={toggle} />
+			<ApplicationNavigation opened={opened} />
 
 			<AppShell.Main className="h-dvh">{children}</AppShell.Main>
 		</AppShell>
