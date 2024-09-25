@@ -78,14 +78,14 @@ export default function ApplicationHeader({
                             alt="My Spotify Taste"
                         />
                         <Title order={3} className="min-w-56 text-md md:text-xl">
-                            『My Spotify Taste』
+                            <Link href="/" > 『My Spotify Taste』</Link>
                         </Title>
                         <Navigation items={navigationItems} />
                         <LoginButton
                             isLoggedIn={isLoggedIn}
                             onLogin={onLogin}
                             onLogout={onLogout}
-                        /> 
+                        />
                     </div>
                 </div>
             </Flex>

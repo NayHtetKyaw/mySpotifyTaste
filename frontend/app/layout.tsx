@@ -1,4 +1,4 @@
-import { ApplicationShell } from "@/components/core/AppShell";
+import { ApplicationShell } from "@components/core/AppShell";
 import { ColorSchemeScript, MantineProvider, createTheme } from "@mantine/core";
 import type { Metadata } from "next";
 import "@mantine/core/styles.css";
