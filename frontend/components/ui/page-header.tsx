@@ -12,27 +12,34 @@ export default function PageHeader({
     artistName: string;
 }): JSX.Element {
     return (
-        <Container fluid>
+        <Container fluid> 
             <Flex
                 direction="row"
                 align="center"
-                justify="center"
+                justify="start"
                 gap="md"
                 mt="xl"
+                w="100%"
+                wrap="wrap"
             >
                 <Avatar src={avatarUrl} size={200} alt="user profile" />
-                <Flex direction="column" justify="start">
+                <Flex direction="column" align="start" h="100%" className="">
                     <Title order={1} className="">
                         Yahoo~ {username} ☆彡
                     </Title>
+                    <Text size="lg" className="">
+                       `{"followerCount"}` : followers on Spotify
+                    </Text>
+                    <Text size="lg" className="">
+                       Favorite genre : `{"favoriteGenre"}`
+                    </Text>
                 </Flex>
                 <Card
                     radius="md"
                     withBorder
-                    bg="green"
                     c="dark"
-                    fw="bold"
-                    className="justify-self-end"
+                    bg="green"
+                    className="ml-auto lg:w-max min-w-80"
                 >
                     <Text mb="xs" className="">
                     Now Playing...
