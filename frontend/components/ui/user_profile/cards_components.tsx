@@ -16,7 +16,7 @@ const SongCard: React.FC<SongCardProps> = ({ title, artist }) => {
 };
 
 export const songsData = [
-    { id: 1, name: 'Song One', artists: [{ name: 'Artist A' }] },
+    { id: 1, name: 'AM 02:00', artists: [{ name: 'Aimer' }] },
     { id: 2, name: 'Song Two', artists: [{ name: 'Artist B' }] },
     { id: 3, name: 'Song Three', artists: [{ name: 'Artist C' }] },
     { id: 4, name: 'Song Four', artists: [{ name: 'Artist D' }] },
