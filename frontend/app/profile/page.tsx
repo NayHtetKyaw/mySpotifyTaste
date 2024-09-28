@@ -1,10 +1,9 @@
 
-import { Title, Container, Text } from "@mantine/core";
+import { Container } from "@mantine/core";
 import PageHeader from "@components/ui/page-header";
-import Song from "@components/ui/user_profile/songs";
+import Userprofile from "@components/ui/user_profile/user-profile";
 
-
-export default function HomePage(): JSX.Element {
+export default function ProfilePage(): JSX.Element {
     return (
         <Container fluid>
             <PageHeader
@@ -13,7 +12,7 @@ export default function HomePage(): JSX.Element {
                 songName="Sukida"
                 artistName="YOASOBI"
             />
-            <Song></Song>
+            <Userprofile></Userprofile>
         </Container>
     );
 }
