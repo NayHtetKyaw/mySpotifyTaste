@@ -1,4 +1,3 @@
-
 import { Card, Text } from '@mantine/core';
 
 interface SongCardProps {
@@ -15,17 +14,21 @@ const SongCard: React.FC<SongCardProps> = ({ title, artist }) => {
     );
 };
 
-export const songsData = [
-    { id: 1, name: 'AM 02:00', artists: [{ name: 'Aimer' }] },
-    { id: 2, name: 'Song Two', artists: [{ name: 'Artist B' }] },
-    { id: 3, name: 'Song Three', artists: [{ name: 'Artist C' }] },
-    { id: 4, name: 'Song Four', artists: [{ name: 'Artist D' }] },
-    { id: 5, name: 'Song Five', artists: [{ name: 'Artist E' }] },
-    { id: 6, name: 'Song Six', artists: [{ name: 'Artist F' }] },
-    { id: 7, name: 'Song Seven', artists: [{ name: 'Artist G' }] },
-    { id: 8, name: 'Song Eight', artists: [{ name: 'Artist H' }] },
-    { id: 9, name: 'Song Nine', artists: [{ name: 'Artist I' }] },
-    { id: 10, name: 'Song Ten', artists: [{ name: 'Artist J' }] },
+const songs = [
+    { id: 1, name: 'AM 02:00', artist: 'Aimer' },
+    { id: 2, name: 'AM 02:00', artist: 'Aimer' },
+    { id: 3, name: 'AM 02:00', artist: 'Aimer' },
+    { id: 4, name: 'AM 02:00', artist: 'Aimer' },
+    { id: 5, name: 'AM 02:00', artist: 'Aimer' },
 ];
 
+const artists = [
+    { id: 1, name: 'Aimer' },
+    { id: 2, name: 'Aimer' },
+    { id: 3, name: 'Aimer' },
+    { id: 4, name: 'Aimer' },
+    { id: 5, name: 'Aimer' },
+]
+
+export { songs, artists };
 export default SongCard;

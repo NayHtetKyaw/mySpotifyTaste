@@ -1,7 +1,7 @@
 'use client';
 
-import { Card, Group, Title, Grid } from "@mantine/core";
-import SongCard, { songsData } from "@components/ui/user_profile/cards_components";
+import { Card, Group, Title } from "@mantine/core";
+import SongCard, { songs, artists } from "@components/ui/user_profile/cards_components";
 
 export default function UserProfile({
     songName,
@@ -15,30 +15,42 @@ export default function UserProfile({
             <Group
                 gap="lg"
                 mt="lg"
-                className="flex flex-col sm:flex-row justify-center"
+                className="flex flex-row justify-center items-start"
             >
-                <Card w="40%" className="flex items-center text-sm">
-                    <Group>
-                        <Title className="text-lg sm:text-lg">Top Artists</Title>
-                    </Group>
-                </Card>
+                <div className="flex flex-col w-[40%]">
+                    <Card className="flex flex-col items-center text-sm mb-4">
+                        <Group>
+                            <Title className="text-lg">Top Artists</Title>
+                        </Group>
+                    </Card>
 
-                <Card w="40%" className="flex items-center text-sm flex-col">
-                    <Group>
-                        <Title className="text-lg sm:text-lg">Top Songs</Title>
-                    </Group>
-
-                    <Grid mt="lg">
-                        {songsData.map((song) => (
-                            <Grid.Col span={12} key={song.id || song.name}>
-                                <SongCard
-                                    title={song.name}
-                                    artist={song.artists && song.artists.length > 0 ? song.artists[0].name : "Unknown Artist"}
-                                />
-                            </Grid.Col>
+                    <div className="grid grid-cols-1">
+                        {artists.map((artist) => (
+                            <SongCard
+                                key={artist.id || artist.name}
+                                title={artist.name}
+                            />
                         ))}
-                    </Grid>
-                </Card>
+                    </div>
+                </div>
+
+                <div className="flex flex-col w-[40%]">
+                    <Card className="flex flex-col items-center text-sm mb-4">
+                        <Group>
+                            <Title className="text-lg">Top Songs</Title>
+                        </Group>
+                    </Card>
+
+                    <div className="grid grid-cols-1">
+                        {songs.map((song) => (
+                            <SongCard
+                                key={song.id || song.name}
+                                title={song.name}
+                                artist={song.artist || "Unknown Artist"}
+                            />
+                        ))}
+                    </div>
+                </div>
             </Group>
         </>
     );
