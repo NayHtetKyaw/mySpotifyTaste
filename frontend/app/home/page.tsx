@@ -1,5 +1,6 @@
 import {Title, Container, Text} from "@mantine/core";
 import PageHeader from "@components/ui/page-header";
+import HeaderTabs from "@components/ui/header-tabs";
 
 export default function HomePage(): JSX.Element {
     return (
@@ -10,6 +11,7 @@ export default function HomePage(): JSX.Element {
                 songName="Sukida"
                 artistName="YOASOBI"
             />
+            <HeaderTabs />  
         </Container>
     );
 }
