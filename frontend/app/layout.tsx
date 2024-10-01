@@ -3,6 +3,7 @@ import { ColorSchemeScript, MantineProvider, createTheme } from "@mantine/core";
 import type { Metadata } from "next";
 import "@mantine/core/styles.css";
 import "./styles/globals.css";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
     title: "My Spotify Taste",
@@ -27,16 +28,16 @@ export default function RootLayout({
 
         colors: {
             dark: [
-			"#909296",
-			"#5C5F66",
-			"#373A40",
-			"#2C2E33",
-			"#25262B",
-			"#1A1B1E",
-			"#141517",
-			"#101113",
-			"#1A1B1C",
-			"#0e0f14"
+                "#909296",
+                "#5C5F66",
+                "#373A40",
+                "#2C2E33",
+                "#25262B",
+                "#1A1B1E",
+                "#141517",
+                "#101113",
+                "#1A1B1C",
+                "#0e0f14",
             ],
         },
     });
@@ -47,9 +48,11 @@ export default function RootLayout({
                 <ColorSchemeScript defaultColorScheme="dark" />
             </head>
             <body>
-                <MantineProvider theme={theme} defaultColorScheme="dark">
-                    <ApplicationShell>{children}</ApplicationShell>
-                </MantineProvider>
+                <Providers>
+                    <MantineProvider theme={theme} defaultColorScheme="dark">
+                        <ApplicationShell>{children}</ApplicationShell>
+                    </MantineProvider>
+                </Providers>
             </body>
         </html>
     );
