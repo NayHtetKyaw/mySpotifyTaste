@@ -48,7 +48,7 @@ export const navigationItems: NavigationItem[] = [
         // icon: <DashboardIcon />
     },
     {
-        title: "Profile",
+        title: "My Profile",
         href: "/profile",
         // icon: <ProfileIcon />
     },
