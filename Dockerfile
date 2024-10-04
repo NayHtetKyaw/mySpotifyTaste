@@ -1,6 +1,9 @@
 FROM php:8.2-fpm
 
-# Install system dependencies and PHP extensions
+# Set debian frontend to non-interactive to avoid prompts
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
@@ -9,22 +12,38 @@ RUN apt-get update && apt-get install -y \
     unzip \
     curl \
     git \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql zip
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install Composer
+# Install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+    gd \
+    pdo \
+    pdo_mysql \
+    zip
+
+# Install Composer globally
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy application code
-COPY . /var/www/html
+# Set working directory
+WORKDIR /var/www/html
 
-# Set appropriate permissions
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+# Copy existing application directory contents to the working directory
+COPY . .
 
-# Expose port 9000
+# Install PHP dependencies via Composer
+RUN composer install --no-scripts --no-autoloader --no-dev --prefer-dist
+
+# Generate optimized autoload files
+RUN composer dump-autoload --optimize
+
+# Set permissions for Laravel
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Expose port 9000 to allow communication with Nginx or another web server
 EXPOSE 9000
 
-# Start PHP-FPM server
+# Start PHP-FPM
 CMD ["php-fpm"]

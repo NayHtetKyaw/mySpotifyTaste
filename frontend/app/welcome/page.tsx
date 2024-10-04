@@ -3,9 +3,7 @@
 import { Title, Text, Container, Button, Flex, Box } from "@mantine/core";
 import Image from "next/image";
 import { IconCircleCheck } from "@tabler/icons-react";
-import { signIn, useSession } from "next-auth/react";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const features = [
   "Visualize your Spotify listening history & stats",
@@ -16,29 +14,12 @@ const features = [
 ];
 
 export default function WelcomePage(): JSX.Element {
-  const { data: session, status } = useSession();
-  const router = useRouter();
 
-  // Redirect to /home if authenticated
-  useEffect(() => {
-    if (status === "authenticated") {
-      router.push("/home");
-    }
-  }, [status, router]);
-
-  // Trigger Spotify sign-in
-  const loginHandler = () => {
-    signIn("spotify", { callbackUrl: "/login" });
+  const handleSpotifyLogin = async () => {
+    await signIn("spotify", {
+      callbackUrl: "/home",
+    });
   };
-
-  // Loading state
-  if (status === "loading") {
-    return (
-      <Container>
-        <Title order={1}>Loading...</Title>
-      </Container>
-    );
-  }
 
   return (
     <Container className="text-center" fluid>
@@ -77,7 +58,7 @@ export default function WelcomePage(): JSX.Element {
               color="green"
               variant="light"
               className="mt-4"
-              onClick={loginHandler}
+              onClick={handleSpotifyLogin}
             >
               Get Started
             </Button>

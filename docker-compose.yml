@@ -3,15 +3,14 @@ services:
     build: 
       context: . 
       dockerfile: Dockerfile
-    image: php:8.2-fpm
     container_name: laravel_app
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
     networks:
       - laravel_network
-    environment:
-      - PHP_EXTENSIONS=mysqli,pdo_mysql
+    depends_on:
+      - db
 
   webserver:
     image: nginx:alpine
@@ -19,7 +18,6 @@ services:
     volumes:
       - ./:/var/www/html
       - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf 
-     
     ports:
       - "8080:80"
     networks:
@@ -30,6 +28,8 @@ services:
   db:
     image: mysql:8.0
     container_name: laravel_db
+    ports:
+      - "3306:3306"
     volumes:
       - dbdata:/var/lib/mysql
     networks:
@@ -37,11 +37,17 @@ services:
     environment:
       MYSQL_DATABASE: my-spotify-taste
       MYSQL_USER: admin
-      MYSQL_PASSWORD: myspotifytaste 
+      MYSQL_PASSWORD: myspotifytaste
       MYSQL_ROOT_PASSWORD: rootpassword
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   laravel_network:
+    driver: bridge
 
 volumes:
   dbdata:

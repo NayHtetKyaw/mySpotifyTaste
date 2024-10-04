@@ -1,16 +1,87 @@
 import { Container, Flex, Title, Text, Card, Avatar, Button} from "@mantine/core";
+import { useEffect, useState } from "react";
+import { signOut } from "next-auth/react";
+import spotifyWebApi from "@lib/spotify";
+
+
+interface PageHeaderProps {
+    username: string;
+    avatarUrl: string;
+    songName: string;
+    artistName: string;
+}
+
+interface SpotifyData {
+    username: string;
+    followers: number;
+    favoriteGenre: string;
+    currentPlayingSong: {
+        name: string;
+        artist: string;
+        imageUrl: string;
+    } | null;
+}
 
 export default function PageHeader({
     username,
     avatarUrl,
     songName,
     artistName,
-}: {
-    username: string;
-    avatarUrl: string;
-    songName: string;
-    artistName: string;
-}): JSX.Element {
+}: PageHeaderProps): JSX.Element {
+    const [spotifyData, setSpotifyData] = useState<SpotifyData>({
+        username: "",
+        followers: 0,
+        favoriteGenre: "",
+        currentPlayingSong: null,
+    });
+
+
+    useEffect(() => {
+        async function fetchSpotifyData() {
+            try {
+
+                // Get user's followers count from spotify
+                const userProfile = await spotifyWebApi.getMe();
+                const username = userProfile.body.display_name ?? "Unknown User";
+                const followerCount = userProfile.body.followers?.total ?? 0;
+
+                // create fav genre from spotify
+                const topArtists = await spotifyWebApi.getMyTopArtists({ limit : 50, time_range: "long_term" });
+                const genreCounts: Record<string, number> = {};
+                topArtists.body.items.forEach((artist) => {
+                    artist.genres.forEach((genre) => {
+                        genreCounts[genre] = (genreCounts[genre] || 0) + 1;
+                    });
+                });
+
+                const favoriteGenre = Object.entries(genreCounts).sort(([,a], [,b]) => b - a)[0][0];
+
+                // get the current playing song
+                const currentPlayingSong = await spotifyWebApi.getMyCurrentPlayingTrack();
+
+                let nowPlaying = null;
+                if (currentPlayingSong.body.item && 'artists' in currentPlayingSong.body.item) {
+                    nowPlaying = {
+                        name: currentPlayingSong.body.item.name,
+                        artist: currentPlayingSong.body.item.artists[0].name,
+                        imageUrl: currentPlayingSong.body.item.album.images[0].url,
+                    };
+                }
+
+                setSpotifyData({
+                    username: username,
+                    followers: followerCount,
+                    favoriteGenre,
+                    currentPlayingSong: nowPlaying,
+                });
+
+            } catch {
+                console.error("Failed to fetch data from Spotify");
+            }
+        }
+        fetchSpotifyData();
+    }, []);
+
     return (
         <Container fluid>
             <Flex
@@ -26,13 +97,13 @@ export default function PageHeader({
                 <Avatar src={avatarUrl} size={200} alt="user profile" />
                 <Flex direction="column" align="start" h="100%">
                     <Title order={1} className="">
-                        Yahoo~ {username} ☆彡
+                        Yahoo~ {spotifyData.username} ☆彡
                     </Title>
                     <Text size="lg" className="">
-                        {"followerCount"} : followers on Spotify
+                        {spotifyData.followers} : followers on Spotify
                     </Text>
                     <Text size="lg" className="">
-                       {"Favorite genre"} : {"favoriteGenre"}
+                       {"Favorite genre"} : {spotifyData.favoriteGenre}
                     </Text>
                     <Button radius={50} color="green" mt="md" >
                         Follow on Spotify
@@ -56,9 +127,9 @@ export default function PageHeader({
                         />
                         <Flex direction="column">
                             <Text size="lg" fw="bold">
-                                {songName}
+                                {spotifyData.currentPlayingSong?.name || songName}
                             </Text>
-                            <Text>{artistName}</Text>
+                            <Text>{spotifyData.currentPlayingSong?.artist}</Text>
                         </Flex>
                     </Flex>
                 </Card>
