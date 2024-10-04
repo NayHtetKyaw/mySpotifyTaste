@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class SpotifyController extends Controller
 {
@@ -31,15 +32,12 @@ class SpotifyController extends Controller
                 ]
             );
 
-            // You might want to create a JWT token here if needed
+            Auth::login($user);
             
-            return response()->json([
-                'user' => $user,
-                'access_token' => $spotifyUser->token,
-            ]);
+            return redirect('/home')->with('status', 'Logged in successfully!');
 
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Authentication failed'], 401);
+            return redirect('/')->with('error', 'Authentication failed');
         }
     }
 }

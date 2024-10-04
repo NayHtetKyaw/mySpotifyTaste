@@ -1,11 +1,46 @@
-"use client";
+'use client'
 
-import { SessionProvider } from "next-auth/react";
+import { createContext, useContext, useEffect, useState } from 'react'
 
-export function Providers({ children } : { children: React.ReactNode }) {
+type User = {
+  id: number
+  name: string
+  email: string
+  spotify_id: string
+}
+
+type AuthContextType = {
+  user: User | null
+  loading: boolean
+}
+
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  loading: true,
+})
+
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch('/api/auth/session')
+      .then(res => res.json())
+      .then(data => {
+        if (data.authenticated) {
+          setUser(data.user)
+        }
+      })
+      .finally(() => setLoading(false))
+  }, [])
+
   return (
-    <SessionProvider>
+    <AuthContext.Provider value={{ user, loading }}>
       {children}
-    </SessionProvider>
-  );
+    </AuthContext.Provider>
+  )
+}
+
+export function useAuth() {
+  return useContext(AuthContext)
 }

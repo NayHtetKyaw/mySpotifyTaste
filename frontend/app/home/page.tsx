@@ -1,9 +1,9 @@
 "use client";
-import { Container, Loader, Center, Text } from "@mantine/core";
+import { Container, Loader, Center, Text, Button } from "@mantine/core";
 import PageHeader from "@components/ui/page-header";
 import HeaderTabs from "@components/ui/header-tabs";
 import { useEffect } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function HomePage(): JSX.Element {
@@ -12,7 +12,7 @@ export default function HomePage(): JSX.Element {
 
     useEffect(() => {
         if (status === "unauthenticated") {
-            router.replace("/");
+            router.replace("/welcome");
         }
     }, [status, router]);
 
@@ -21,6 +21,21 @@ export default function HomePage(): JSX.Element {
             <Container>
                 <Center h={400}>
                     <Loader size="xl" />
+                </Center>
+            </Container>
+        );
+    }
+
+    if (session?.error === "RefreshAccessTokenError") {
+        return (
+            <Container>
+                <Center h={400}>
+                    <div style={{ textAlign: 'center' }}>
+                        <Text mb="xl">Failed to refresh access token.</Text>
+                        <Button onClick={() => signIn("spotify")}>
+                            Sign in again
+                        </Button>
+                    </div>
                 </Center>
             </Container>
         );
