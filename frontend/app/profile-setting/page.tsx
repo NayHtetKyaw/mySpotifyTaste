@@ -1,60 +1,111 @@
-import { Container } from "@mantine/core";
+import {
+    Container,
+    Button,
+    Title,
+    Text,
+    Flex,
+    Stack,
+    Avatar,
+    Divider,
+    Box,
+    Card,
+} from "@mantine/core";
+import Link from "next/link";
 
 export default function ProfileSetting() {
     return (
-       
-  <Container className="m-3" fluid>
-    <div >
-        <h2 className="text-3xl font-semibold mb-4"> Hello, {"{USER}"}</h2>
-        <img
-              src="/assets/images/myspotifytaste.png"
-              alt="Profile Picture" 
-              className="w-32 h-32 rounded-full mb-4"
-            />
-    </div>
+        <Container>
+            <Flex gap="lg" direction="column">
+                <Flex className="self-center" direction="column" gap="md">
+                    <Avatar
+                        src={"/assets/images/myspotifytaste.png"}
+                        size={150}
+                    />
 
-    <div className="p-6 bg-custom-bg text-white rounded-lg mb-4">
-        <h3 className="text-xl font-semibold">Spotify Account </h3>
-            <p className="mt-1 text-sm">The Spotify account that you are signed in with.</p>
-            <div className="mt-9">
-              <p><span className="font-bold">User name:</span> </p>
-              <p>vickyB1456</p>
-              <p><span className="font-bold">Access Level:</span></p>
-              <p> Basic</p>
-            </div>
-    </div>
+                    <Title order={2} className="text-center">
+                        {"username"}
+                    </Title>
+                </Flex>
+                <Divider />
+                <Stack gap="md">
+                    <Card>
+                        <Title order={3} c="green">
+                            Spotify Account{" "}
+                        </Title>
+                        <Text mt="xs">
+                            The Spotify account that you are signed in with.
+                        </Text>
+                    </Card>
 
-    <div className="p-6 bg-custom-bg text-white rounded-lg mb-4 ">
-        <h3 className="text-xl font-semibold">Email </h3>
-            <p className="mt-1 text-sm">The email address assosiated with your account.</p>
-            <p className="font-bold mt-2">vickyyang2345@gmail.com</p>
-    </div>
+                    <Card>
+                        <Title order={4} c="green">
+                            {"Username"}
+                        </Title>
+                        <Text>vickyB1456</Text>
+                        <Title order={4} c={"green"} mt="xs">
+                            Access Level:
+                        </Title>
+                        <Text>Basic</Text>
+                    </Card>
 
-    <div className= "p-6 bg-custom-bg text-white rounded-lg">
-        <h3 className="text-xl font-semibold">Plan</h3>
-            <p className="text-sm">Upgrade your plan and unlock all your great features</p>
-            <p className="font-bold mt-2">You are currently on the basic plan.</p>
-    </div>
+                    <Card>
+                        <Title order={3} c="green">
+                            Email{" "}
+                        </Title>
+                        <Text>
+                            The email address assosiated with your account.
+                        </Text>
+                        <Text fw="bold">vickyyang2345@gmail.com</Text>
+                    </Card>
 
-    <div className="p-6 bg-custom-bg text-white rounded-lg mt-4">
-        <h3 className="text-xl font-semibold">Subscription</h3>
-        <p className="text-sm">Visit the Billing Portal to view your invoices, manage your cards, or cancel your subscription.</p>
-        <button className="mt-2 py-2 px-4 bg-white text-black rounded-3xl hover:bg-gray-600">Billing Portal</button>
+                    <Card>
+                        <Title order={3} c="green">
+                            Plan
+                        </Title>
+                        <Text>
+                            Upgrade your plan and unlock all your great features
+                        </Text>
+                        <Text fw="bold">
+                            You are currently on the basic plan.
+                        </Text>
+                    </Card>
 
-        <div className="mt-4">
-            <h3 className="text-xl font-semibold">Sign Out</h3>
-            <p className="text-sm">Sign out of your account on this browser</p>
-            <a href="/">
-            <button className="mt-2 py-2 px-4 bg-white text-black rounded-3xl hover:bg-gray-600">Sign Out</button>
-            </a>
-        </div>
-    </div>
+                    <Card>
+                        <Title order={3} c="green">
+                            Subscription
+                        </Title>
+                        <Text>
+                            Visit the Billing Portal to view your invoices,
+                            manage your cards, or cancel your subscription.
+                        </Text>
+                        <Link href="/billing-portal">
+                            <Button radius={50} color="green" mt="sm">
+                                Billing Portal
+                            </Button>
+                        </Link>
 
-    <footer className="flex justify-center">
-        <button className="px-4 py-2 bg-white text-black rounded-3xl hover:bg-red-600 mt-4 mb-4">Delete Account</button>
-    </footer>
+                        <div className="mt-4">
+                            <Title order={3} c="green">
+                                Sign Out
+                            </Title>
+                            <Text>
+                                Sign out of your account on this browser
+                            </Text>
+                            <Link href="/">
+                                <Button radius={50} color="green" mt="sm">
+                                    Sign out
+                                </Button>
+                            </Link>
+                        </div>
+                    </Card>
 
-  </Container>   
+                    <footer className="flex justify-center mb-4">
+                        <Button radius={50} color="red">
+                            Delete Account
+                        </Button>
+                    </footer>
+                </Stack>
+            </Flex>
+        </Container>
     );
-  }
-  
+}
