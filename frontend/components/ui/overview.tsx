@@ -1,4 +1,4 @@
-import { Card, Text, Flex, Stack, Tab } from "@mantine/core";
+import { Card, Text, Flex, Stack, Divider, NativeSelect } from "@mantine/core";
 import Image from "next/image";
 
 interface Artist {
@@ -42,18 +42,37 @@ export default function Overview(): JSX.Element {
             p="lg"
             justify="center"
             wrap="wrap">
+
+            <div className="container mt-4 px-52" >
+                <NativeSelect
+                    variant="filled"
+                    w="15%">
+                    <optgroup label="Select Period">
+                        <option value="short">Short Term</option>
+                        <option value="medium">Medium Term</option>
+                        <option value="long"> Long Term</option>
+                    </optgroup>
+                    <hr />
+                    <optgroup label="Days">
+                        <option value="seven">Last 7 Days</option>
+                        <option value="thirty">Last 30 Days</option>
+                        <option value="ninety">Last 90 Days</option>
+                    </optgroup>
+                </NativeSelect>
+            </div>
+
             <Card
                 shadow="xs"
                 padding="xl"
                 radius="md"
                 m="lg"
-                className="min-w-80 w-[30%] h-[52rem]">
+                className="min-w-80 w-[30%] h-[58rem]">
                 <Text
                     size="xl"
                     fw={800}
                     className="text-center">TOP ARTIST</Text>
 
-                <div className="flex justify-center items-center m-4 h-36">
+                <div className="flex justify-center items-center m-4 h-40">
                     <Image src="/assets/images/profile.png" width={110} height={110} alt="profile" className="relative duration-150 -left-5 hover:scale-110 hover:-translate-x-4 hover:-rotate-2" />
                     <Image src="/assets/images/profile.png" width={110} height={110} alt="profile" className="relative duration-150 -right-5 hover:scale-110 hover:translate-x-4 hover:rotate-2" />
                     <Image src="/assets/images/profile.png" width={125} height={125} alt="profile" className="absolute duration-150 hover:scale-110" />
@@ -63,17 +82,18 @@ export default function Overview(): JSX.Element {
                     w="full"
                     align="stretch"
                     justify="flex-start"
-                    gap="sm">
+                    gap="md">
                     {artistsData.map((artist, index) => (
-                        <Text key={index} size="lg" fw={600} mt="sm" className="text-left">
+                        <Text key={index} size="lg" fw={600} className="text-left">
                             {index + 1}. {artist.name}
+                            <Divider mt="md" />
                         </Text>
                     ))}
                 </Stack>
 
                 <Text color="green" m="sm" className="text-center">SEE MORE</Text>
 
-            </Card>
+            </Card >
 
 
             <Card
@@ -81,10 +101,10 @@ export default function Overview(): JSX.Element {
                 padding="xl"
                 radius="md"
                 m="lg"
-                className="min-w-80 w-[30%] h-[68rem]">
+                className="min-w-80 w-[30%] h-[71rem]">
                 <Text size="xl" fw={800} className="text-center">TOP SONG</Text>
 
-                <div className="flex justify-center items-center m-4 h-36">
+                <div className="flex justify-center items-center m-4 h-40">
                     <Image src="/assets/images/profile.png" width={110} height={110} alt="profile" className="relative duration-150 -left-5 hover:scale-110 hover:-translate-x-4 hover:-rotate-2" />
                     <Image src="/assets/images/profile.png" width={110} height={110} alt="profile" className="relative duration-150 -right-5 hover:scale-110 hover:translate-x-4 hover:rotate-2" />
                     <Image src="/assets/images/profile.png" width={125} height={125} alt="profile" className="absolute duration-150 hover:scale-110" />
@@ -100,15 +120,15 @@ export default function Overview(): JSX.Element {
                         <Text key={index}
                             size="lg"
                             fw={600}
-                            mt="sm"
                             className="text-left flex flex-col">
                             {index + 1}. {song.name}
                             <Text size="md">{song.artist}</Text>
+                            <Divider className="mt-4" />
                         </Text>
                     ))}
                 </Stack>
                 <Text color="green" m="sm" className="text-center">SEE MORE</Text>
             </Card>
-        </Flex>
+        </Flex >
     );
 }
