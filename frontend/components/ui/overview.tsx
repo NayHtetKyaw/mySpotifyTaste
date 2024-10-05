@@ -1,4 +1,4 @@
-import { Card, Text, Flex, Stack } from "@mantine/core";
+import { Card, Text, Flex, Stack, Tab } from "@mantine/core";
 import Image from "next/image";
 
 interface Artist {
@@ -14,13 +14,13 @@ const artistsData: Artist[] = [
     { name: "Aimer" },
     { name: "DUSTCELL" },
     { name: "Hiroyuki Sawano" },
-    { name: "Artist 4" },
-    { name: "Artist 5" },
-    { name: "Artist 6" },
-    { name: "Artist 7" },
-    { name: "Artist 8" },
-    { name: "Artist 9" },
-    { name: "Artist 10" },
+    { name: "-" },
+    { name: "-" },
+    { name: "-" },
+    { name: "-" },
+    { name: "-" },
+    { name: "-" },
+    { name: "-" },
 ];
 
 const songsData: Song[] = [
@@ -38,9 +38,20 @@ const songsData: Song[] = [
 
 export default function Overview(): JSX.Element {
     return (
-        <Flex p="lg" justify="center" wrap="wrap">
-            <Card shadow="xs" padding="xl" radius="md" m="lg" className="min-w-80 w-[30%] h-[52rem]">
-                <Text size="xl" fw={800} className="text-center">TOP ARTIST</Text>
+        <Flex
+            p="lg"
+            justify="center"
+            wrap="wrap">
+            <Card
+                shadow="xs"
+                padding="xl"
+                radius="md"
+                m="lg"
+                className="min-w-80 w-[30%] h-[52rem]">
+                <Text
+                    size="xl"
+                    fw={800}
+                    className="text-center">TOP ARTIST</Text>
 
                 <div className="flex justify-center items-center m-4 h-36">
                     <Image src="/assets/images/profile.png" width={110} height={110} alt="profile" className="relative duration-150 -left-5 hover:scale-110 hover:-translate-x-4 hover:-rotate-2" />
@@ -48,18 +59,29 @@ export default function Overview(): JSX.Element {
                     <Image src="/assets/images/profile.png" width={125} height={125} alt="profile" className="absolute duration-150 hover:scale-110" />
                 </div>
 
-
-                <Stack h={200} w="full" align="stretch" justify="flex-start" gap="sm">
+                <Stack
+                    w="full"
+                    align="stretch"
+                    justify="flex-start"
+                    gap="sm">
                     {artistsData.map((artist, index) => (
                         <Text key={index} size="lg" fw={600} mt="sm" className="text-left">
                             {index + 1}. {artist.name}
                         </Text>
                     ))}
                 </Stack>
+
+                <Text color="green" m="sm" className="text-center">SEE MORE</Text>
+
             </Card>
 
 
-            <Card shadow="xs" padding="xl" radius="md" m="lg" className="min-w-80 w-[30%] h-[66rem]">
+            <Card
+                shadow="xs"
+                padding="xl"
+                radius="md"
+                m="lg"
+                className="min-w-80 w-[30%] h-[68rem]">
                 <Text size="xl" fw={800} className="text-center">TOP SONG</Text>
 
                 <div className="flex justify-center items-center m-4 h-36">
@@ -69,14 +91,23 @@ export default function Overview(): JSX.Element {
                 </div>
 
 
-                <Stack h={200} w="full" align="stretch" justify="flex-start" gap="sm">
+                <Stack
+                    w="full"
+                    align="stretch"
+                    justify="flex-start"
+                    gap="sm">
                     {songsData.map((song, index) => (
-                        <Text key={index} size="lg" fw={600} mt="sm" className="text-left flex flex-col">
+                        <Text key={index}
+                            size="lg"
+                            fw={600}
+                            mt="sm"
+                            className="text-left flex flex-col">
                             {index + 1}. {song.name}
                             <Text size="md">{song.artist}</Text>
                         </Text>
                     ))}
                 </Stack>
+                <Text color="green" m="sm" className="text-center">SEE MORE</Text>
             </Card>
         </Flex>
     );
