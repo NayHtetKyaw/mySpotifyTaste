@@ -1,5 +1,6 @@
 import { Card, Text, Flex, Stack, Divider, NativeSelect } from "@mantine/core";
 import Image from "next/image";
+import SelectPeriod from "./select-period";
 
 interface Artist {
     name: string;
@@ -41,32 +42,17 @@ export default function Overview(): JSX.Element {
         <Flex
             p="lg"
             justify="center"
-            wrap="wrap">
-
-            <div className="container mt-4 px-52" >
-                <NativeSelect
-                    variant="filled"
-                    w="15%">
-                    <optgroup label="Select Period">
-                        <option value="short">Short Term</option>
-                        <option value="medium">Medium Term</option>
-                        <option value="long"> Long Term</option>
-                    </optgroup>
-                    <hr />
-                    <optgroup label="Days">
-                        <option value="seven">Last 7 Days</option>
-                        <option value="thirty">Last 30 Days</option>
-                        <option value="ninety">Last 90 Days</option>
-                    </optgroup>
-                </NativeSelect>
-            </div>
+            wrap="wrap"
+        >
+            <SelectPeriod />
+            <div className="h-[2%] w-full" />
 
             <Card
                 shadow="xs"
                 padding="xl"
                 radius="md"
                 m="lg"
-                className="min-w-80 w-[30%] h-[58rem]">
+                className="min-w-96 w-[32%] h-[58rem]">
                 <Text
                     size="xl"
                     fw={800}
@@ -77,7 +63,6 @@ export default function Overview(): JSX.Element {
                     <Image src="/assets/images/profile.png" width={110} height={110} alt="profile" className="relative duration-150 -right-5 hover:scale-110 hover:translate-x-4 hover:rotate-2" />
                     <Image src="/assets/images/profile.png" width={125} height={125} alt="profile" className="absolute duration-150 hover:scale-110" />
                 </div>
-
                 <Stack
                     w="full"
                     align="stretch"
@@ -90,18 +75,15 @@ export default function Overview(): JSX.Element {
                         </Text>
                     ))}
                 </Stack>
-
-                <Text color="green" m="sm" className="text-center">SEE MORE</Text>
-
+                <Text color="green" m="sm" className="relative top-2 text-center">SEE MORE</Text>
             </Card >
-
 
             <Card
                 shadow="xs"
                 padding="xl"
                 radius="md"
                 m="lg"
-                className="min-w-80 w-[30%] h-[71rem]">
+                className="min-w-96 w-[32%] h-[71rem]">
                 <Text size="xl" fw={800} className="text-center">TOP SONG</Text>
 
                 <div className="flex justify-center items-center m-4 h-40">
@@ -109,8 +91,6 @@ export default function Overview(): JSX.Element {
                     <Image src="/assets/images/profile.png" width={110} height={110} alt="profile" className="relative duration-150 -right-5 hover:scale-110 hover:translate-x-4 hover:rotate-2" />
                     <Image src="/assets/images/profile.png" width={125} height={125} alt="profile" className="absolute duration-150 hover:scale-110" />
                 </div>
-
-
                 <Stack
                     w="full"
                     align="stretch"
@@ -127,7 +107,7 @@ export default function Overview(): JSX.Element {
                         </Text>
                     ))}
                 </Stack>
-                <Text color="green" m="sm" className="text-center">SEE MORE</Text>
+                <Text color="green" m="sm" className="relative top-2 text-center">SEE MORE</Text>
             </Card>
         </Flex >
     );
