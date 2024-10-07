@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\SpotifyController;
+use App\Http\Controllers\SpotifyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -8,14 +8,6 @@ Route::get('/', function () {
 });
 
 Route::prefix('api')->group(function () {
-    Route::get('/auth/spotify', [SpotifyController::class, 'redirectToProvider']);
-    Route::get('/auth/spotify/callback', [SpotifyController::class, 'handleProviderCallback']);
-});
-
-// Add a route to check authentication status
-Route::get('/api/auth/session', function () {
-    return response()->json([
-        'user' => auth()->user(),
-        'authenticated' => auth()->check()
-    ]);
+    Route::get('/test', fn() => response()->json(['message' => 'API is working!']));
+ 
 });

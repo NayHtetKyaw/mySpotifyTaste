@@ -1,64 +1,82 @@
 "use client";
-import { Container, Loader, Center, Text, Button } from "@mantine/core";
+import { Container, Loader, Center, Text } from "@mantine/core";
 import PageHeader from "@components/ui/page-header";
 import HeaderTabs from "@components/ui/header-tabs";
-import { useEffect } from "react";
-import { useSession, signIn } from "next-auth/react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+interface userData {
+    user: {
+        display_name: string;
+        followers: { total: number };
+        images: { url: string }[];
+        favoriteGenre: string;
+    };
+
+    topTracks: any[];
+    topArtists: any[];
+    topGenres: string[];
+}
+
 export default function HomePage(): JSX.Element {
-    const { data: session, status } = useSession();
+    const [userData, setUserData] = useState<userData | null>(null);
+    const [Loading, setloading] = useState(true);
     const router = useRouter();
 
     useEffect(() => {
-        if (status === "unauthenticated") {
-            router.replace("/welcome");
+        const fetchUserData = async () => {
+            try {
+                const urlParms = new URLSearchParams(window.location.search);
+                const access_token = urlParms.get("access_token");  
+
+                if ( !access_token ) {
+                    router.push("/");
+                    return;
+                }
+
+                const response = await fetch(`/api/spotify?access_token=${access_token}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setUserData(data);
+                } else {
+                    console.error("Failed to fetch user data");
+                }
+            } catch (error){
+                console.error("Error fetching user data:", error);
+            } finally {
+                setloading(false);
+            }
         }
-    }, [status, router]);
 
-    if (status === "loading") {
+        fetchUserData();
+    }, [router]);
+
+    if (Loading) {
+        return (
+            <Center>
+                <Loader />
+            </Center>
+        );
+    }
+
+    if(!userData) { 
         return (
             <Container>
-                <Center h={400}>
-                    <Loader size="xl" />
-                </Center>
+                <Text size="xl">
+                    Error fetching user data
+                </Text>
             </Container>
         );
     }
 
-    if (session?.error === "RefreshAccessTokenError") {
-        return (
-            <Container>
-                <Center h={400}>
-                    <div style={{ textAlign: 'center' }}>
-                        <Text mb="xl">Failed to refresh access token.</Text>
-                        <Button onClick={() => signIn("spotify")}>
-                            Sign in again
-                        </Button>
-                    </div>
-                </Center>
-            </Container>
-        );
-    }
-
-    if (!session?.accessToken) {
-        return (
-            <Container>
-                <Center h={400}>
-                    <Text>Authentication error. Please try logging in again.</Text>
-                </Center>
-            </Container>
-        );
-    }
-    
-    return (
+     return (
         <Container fluid>
             <PageHeader
-                username={session.user?.name ?? "Music Lover"}
-                avatarUrl={session.user?.image ?? "/assets/images/myspotifytaste.png"}
-                songName="Sukida"
-                artistName="YOASOBI"    
-            />
+                username={userData.user.display_name}
+                profilePicture={userData.user.images[0]?.url || "/assets/images/myspotifytaste.png"}
+                followers={userData.user.followers}
+                favoriteGenre={userData.topArtists[0]?.genres[0] || "N/A"}
+            /> 
             <HeaderTabs />  
         </Container>
     );

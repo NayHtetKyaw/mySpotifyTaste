@@ -1,67 +1,24 @@
-import SpotifyWebApi from "spotify-web-api-node";
+import SpotifyWebApi from 'spotify-web-api-node';
 
-export type SpotifyError = {
-    status: number;
-    message: string;
+const scopes = [
+  'user-read-private',
+  'user-read-email',
+  'user-top-read',
+  'user-read-recently-played',
+].join(' ');
+
+const params = {
+  scope: scopes,
 };
 
-export function isSpotifyError(error: unknown): error is SpotifyError {
-    return (
-        typeof error === "object" &&
-        error !== null &&
-        "statusCode" in error &&
-        "message" in error
-    );
-}
+const queryParamString = new URLSearchParams(params);
 
-class SpotifyAPI {
-    private static instance: SpotifyWebApi;
+const spotifyApi = new SpotifyWebApi({
+  clientId: process.env.SPOTIFY_CLIENT_ID,
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+  redirectUri: process.env.SPOTIFY_REDIRECT_URI,
+});
 
-    public static getInstance(): SpotifyWebApi {
-        if (!SpotifyAPI.instance) {
-            SpotifyAPI.instance = new SpotifyWebApi({
-                clientId: process.env.SPOTIFY_CLIENT_ID,
-                clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-            });
-        }
-        return SpotifyAPI.instance;
-    }
+export const LOGIN_URL = `https://accounts.spotify.com/authorize?${queryParamString.toString()}&client_id=${process.env.SPOTIFY_CLIENT_ID}&response_type=code&redirect_uri=${encodeURIComponent(process.env.SPOTIFY_REDIRECT_URI || '')}`;
 
-    public static setAccessToken(accessToken: string): void {
-        SpotifyAPI.getInstance().setAccessToken(accessToken);
-    }
-}
-
-export async function getMe(accessToken: string): Promise<SpotifyApi.UserProfileResponse> {
-    SpotifyAPI.setAccessToken(accessToken);
-    const response = await SpotifyAPI.getInstance().getMe();
-    return response.body;
-}
-
-export async function getTopTracks(
-    accessToken: string,
-    timeRange: 'short_term' | 'medium_term' | 'long_term' = 'long_term'
-): Promise<SpotifyApi.TrackObjectFull[]> {
-    SpotifyAPI.setAccessToken(accessToken);
-    const response = await SpotifyAPI.getInstance().getMyTopTracks({
-        limit: 50,
-        offset: 0,
-        time_range: timeRange,
-    });
-    return response.body.items;
-}
-
-export async function getTopArtists(
-    accessToken: string,
-    timeRange: 'short_term' | 'medium_term' | 'long_term' = 'long_term'
-): Promise<SpotifyApi.ArtistObjectFull[]> {
-    SpotifyAPI.setAccessToken(accessToken);
-    const response = await SpotifyAPI.getInstance().getMyTopArtists({
-        limit: 50,
-        offset: 0,
-        time_range: timeRange,
-    });
-    return response.body.items;
-}
-
-export default SpotifyAPI;
+export { spotifyApi };

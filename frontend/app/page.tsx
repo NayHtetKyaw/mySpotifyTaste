@@ -3,8 +3,7 @@
 import { Title, Text, Container, Button, Flex, Box } from "@mantine/core";
 import Image from "next/image";
 import { IconCircleCheck } from "@tabler/icons-react";
-import { useAuth } from '../providers';
-import Link from 'next/link';
+import { useRouter } from "next/navigation";
 
 const features = [
   "Visualize your Spotify listening history & stats",
@@ -15,16 +14,23 @@ const features = [
 ];
 
 export default function WelcomePage(): JSX.Element {
-  const{ user, loading } = useAuth();
+ const router = useRouter();
 
-  if (loading) {
-    return (
-      <Container>
-          <Text>Loading...</Text>
-      </Container>
-    );
-  }
-  
+    const handleSpotifyLogin = async () => {
+        try {
+            const response = await fetch('/api/auth/login');
+            if (response.ok) {
+                const data = await response.json();
+                // Redirect to Spotify login page
+                window.location.href = data.loginUrl;
+            } else {
+                console.error('Failed to initiate login');
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+        }
+    };
+
   return (
     <Container className="text-center" fluid>
       <Title className="sm:text-md md:text-3xl lg:text-4xl">
@@ -56,32 +62,16 @@ export default function WelcomePage(): JSX.Element {
 
           <Flex direction="column" align="center" mt={150}>
             <Text>Get started now & discover your music taste!</Text>
-            {!user ? (
-              <Link href="/api/auth/spotify">
-                 <Button
+            <Button
               size="lg"
               radius="xl"
               color="green"
               variant="light"
               className="mt-4"
+              onClick={handleSpotifyLogin}
             >
               Get Started
             </Button>
-              </Link>
-            ) : (
-              <Link href="/home">
-                <Button
-                  size="lg"
-                  radius="xl"
-                  color="green"
-                  variant="light"
-                  className="mt-4"
-                >
-                  Continue
-                </Button>
-              </Link>
-            )}
-           
           </Flex>
         </Box>
       </Flex>

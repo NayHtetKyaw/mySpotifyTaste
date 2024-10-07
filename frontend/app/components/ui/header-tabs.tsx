@@ -8,7 +8,6 @@ import {
     IconHeartFilled,
     IconCategory2,
 } from "@tabler/icons-react";
-import TopTracks from "./top-songs";
 
 export default function HeaderTabs(): JSX.Element {
     return (
@@ -52,9 +51,7 @@ export default function HeaderTabs(): JSX.Element {
                 </Tabs.Panel>
 
                 <Tabs.Panel value="songs">
-                    {/* <Text size="md">Top songs</Text> */}
-
-                    <TopTracks />
+                    <Text size="md">Top songs</Text>
                 </Tabs.Panel>
 
                 <Tabs.Panel value="artists">

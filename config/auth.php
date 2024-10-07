@@ -65,6 +65,16 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+        ],
+
+    '   sanctum' => [ // Add this section
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -96,6 +106,8 @@ return [
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
         ],
     ],
 
