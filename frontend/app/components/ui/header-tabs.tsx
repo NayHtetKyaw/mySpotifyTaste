@@ -11,6 +11,7 @@ import {
 
 import Overview from "./overview";
 import Artists from "./artists";
+import TopSongs from "./top-songs";
 
 export default function HeaderTabs(): JSX.Element {
     return (
@@ -54,7 +55,7 @@ export default function HeaderTabs(): JSX.Element {
             </Tabs.Panel>
 
             <Tabs.Panel value="songs">
-                <Text size="md">Top songs</Text>
+                <TopSongs />
             </Tabs.Panel>
 
             <Tabs.Panel value="artists">

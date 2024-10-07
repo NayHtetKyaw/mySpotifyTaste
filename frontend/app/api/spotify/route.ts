@@ -4,6 +4,8 @@ import { spotifyApi } from '@lib/spotify';
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const access_token = searchParams.get('access_token');
+  const term = (searchParams.get('term') as 'short_term' | 'long_term' | 'medium_term') || 'short_term';
+  const limit = parseInt(searchParams.get('limit') || '10', 10);
 
   if (!access_token) {
     return NextResponse.json({ error: 'No access token provided' }, { status: 401 });
@@ -19,8 +21,8 @@ export async function GET(request: NextRequest) {
       recentlyPlayed,
     ] = await Promise.all([
       spotifyApi.getMe(),
-      spotifyApi.getMyTopTracks({ limit: 10 }),
-      spotifyApi.getMyTopArtists({ limit: 10 }),
+      spotifyApi.getMyTopTracks({ time_range: term, limit }),
+      spotifyApi.getMyTopArtists({ limit: 50 }),
       spotifyApi.getMyRecentlyPlayedTracks({ limit: 20 }),
     ]);
 
