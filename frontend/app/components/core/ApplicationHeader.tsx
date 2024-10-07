@@ -97,7 +97,7 @@ export default function ApplicationHeader({
 
 function Navigation({ items }: { items: NavigationItem[] }) {
     return (
-        <div className="ml-10 hidden h-full w-full flex row justify-end gap-x-4 lg:flex">
+        <div className="ml-10 hidden w-full flex row justify-end gap-x-4 lg:flex">
             {items.map((item) => (
                 <div
                     key={"navitem" + item.title}
