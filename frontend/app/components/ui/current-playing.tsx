@@ -12,6 +12,7 @@ interface Song {
 interface SpotifyData {
     currentlyPlaying: {
         item: Song;
+        is_playing: boolean;
     } | null;
 }
 
@@ -48,8 +49,7 @@ export default function CurrentPlaying(): JSX.Element {
         const intervalId = setInterval(fetchCurrentlyPlaying, 5000);
         return () => clearInterval(intervalId);
     }, []);
-
-    if (!spotifyData?.currentlyPlaying || !spotifyData.currentlyPlaying.item) {
+    if (!spotifyData?.currentlyPlaying || !spotifyData.currentlyPlaying.is_playing) {
         return <></>;
     } else {
         return (
