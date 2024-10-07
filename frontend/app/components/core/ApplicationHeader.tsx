@@ -1,3 +1,5 @@
+"use client";
+
 import { AppShell, Burger, NavLink, Flex, Title, Button } from "@mantine/core";
 import Link from "next/link";
 import Image from "next/image";
@@ -44,7 +46,7 @@ function Logo({ link, src, alt, isRounded = false }: LogoProps) {
 export const navigationItems: NavigationItem[] = [
     {
         title: "About us",
-        href: "/about",
+        href: "/about-us",
         // icon: <DashboardIcon />
     },
     {

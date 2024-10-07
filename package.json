@@ -2,7 +2,12 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "concurrently \"php artisan serve\" \"cd frontend && npm run dev\""
+        "dev": "concurrently \"docker-compose up\" \"cd frontend && npm run dev\"",
+        "docker:up": "docker-compose up",
+        "docker:down": "docker-compose down",
+        "docker:build": "docker-compose build",
+        "frontend:dev": "cd frontend && npm run dev",
+        "frontend:build": "cd frontend && npm run build"
     },
     "devDependencies": {
         "axios": "^1.6.4",

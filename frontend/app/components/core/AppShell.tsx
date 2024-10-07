@@ -18,7 +18,7 @@ export function ApplicationShell({ children }: { children: React.ReactNode }): J
 			}}
 			padding="md"
 		>
-			<ApplicationHeader opened={opened} toggle={toggle} isLoggedIn={false} onLogin={() => {}} onLogout={() => {}}/>  //TODO: Implement login/logout
+			<ApplicationHeader opened={opened} toggle={toggle} isLoggedIn={false} onLogin={() => {}} onLogout={() => {}}/>  
 			<ApplicationNavigation opened={opened} />
 
 			<AppShell.Main className="h-dvh">{children}</AppShell.Main>

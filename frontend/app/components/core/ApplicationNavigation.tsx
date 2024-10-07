@@ -1,3 +1,5 @@
+"use client";
+
 import {AppShell, RemoveScroll, Stack, Button} from "@mantine/core";
 import { navigationItems } from "./ApplicationHeader";
 import RecursiveNavLink from "./RecursiveNavlink";

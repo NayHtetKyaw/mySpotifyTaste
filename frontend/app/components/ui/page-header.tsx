@@ -1,16 +1,21 @@
 import { Container, Flex, Title, Text, Card, Avatar, Button} from "@mantine/core";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-export default function PageHeader({
-    username,
-    avatarUrl,
-    songName,
-    artistName,
-}: {
+interface PageHeaderProps {
     username: string;
-    avatarUrl: string;
-    songName: string;
-    artistName: string;
-}): JSX.Element {
+    profilePicture: string;
+    followers: { total: number };
+    favoriteGenre: string;
+}
+
+export default function PageHeader({ 
+    username,
+    profilePicture,
+    followers,
+    favoriteGenre,
+}: PageHeaderProps): JSX.Element {
+
     return (
         <Container fluid>
             <Flex
@@ -23,16 +28,16 @@ export default function PageHeader({
                 w="100%"
                 wrap="wrap"
             >
-                <Avatar src={avatarUrl} size={200} alt="user profile" />
+                <Avatar src={profilePicture} size={200} alt="user profile" />
                 <Flex direction="column" align="start" h="100%">
                     <Title order={1} className="">
                         Yahoo~ {username} ☆彡
                     </Title>
                     <Text size="lg" className="">
-                        {"followerCount"} : followers on Spotify
+                        followers : {followers.total}
                     </Text>
                     <Text size="lg" className="">
-                       {"Favorite genre"} : {"favoriteGenre"}
+                       {"Favorite genre"} : {favoriteGenre}
                     </Text>
                     <Button radius={50} color="green" mt="md" >
                         Follow on Spotify
@@ -56,9 +61,9 @@ export default function PageHeader({
                         />
                         <Flex direction="column">
                             <Text size="lg" fw="bold">
-                                {songName}
+                                {"songName"}
                             </Text>
-                            <Text>{artistName}</Text>
+                            <Text>{"artistName"}</Text>
                         </Flex>
                     </Flex>
                 </Card>
