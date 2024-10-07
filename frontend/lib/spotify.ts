@@ -1,10 +1,11 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 
 const scopes = [
-  'user-read-private',
-  'user-read-email',
-  'user-top-read',
-  'user-read-recently-played',
+  "user-read-private",
+  "user-read-email",
+  "user-top-read",
+  "user-read-recently-played",
+  "user-read-currently-playing",
 ].join(' ');
 
 const params = {
