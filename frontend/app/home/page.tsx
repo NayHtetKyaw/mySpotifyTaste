@@ -1,5 +1,5 @@
 "use client";
-import { Container, Loader, Center, Text } from "@mantine/core";
+import { Container, Loader, Center, Text, Title, Flex } from "@mantine/core";
 import PageHeader from "@components/ui/page-header";
 import HeaderTabs from "@components/ui/header-tabs";
 import { useEffect, useState } from "react";
@@ -21,6 +21,7 @@ interface userData {
 export default function HomePage(): JSX.Element {
   const [userData, setUserData] = useState<userData | null>(null);
   const [Loading, setloading] = useState(true);
+  const [allTimePlayedTime, setAllTimePlayedTime] = useState<number>(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -40,6 +41,7 @@ export default function HomePage(): JSX.Element {
         if (response.ok) {
           const data = await response.json();
           setUserData(data);
+          setAllTimePlayedTime(data.allTimePlayedTime);
         } else {
           console.error("Failed to fetch user data");
         }
@@ -72,7 +74,7 @@ export default function HomePage(): JSX.Element {
   }
 
   return (
-    <Container fluid>
+    <Container fluid mb="xl">
       <PageHeader
         username={userData.user.display_name}
         profilePicture={
@@ -80,6 +82,7 @@ export default function HomePage(): JSX.Element {
         }
         followers={userData.user.followers}
         favoriteGenre={userData.topGenre.toUpperCase() || "N/A"}
+        allTimePlayedTime={Math.ceil(allTimePlayedTime)}
       />
       <HeaderTabs />
     </Container>

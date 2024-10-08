@@ -50,7 +50,7 @@ export default function TopGenres(): JSX.Element {
   return (
     <>
       <Title order={1} mt="lg" className="text-center">
-        Top Songs
+        Top Genres
       </Title>
       <Flex justify="center" mt="md">
         <Select

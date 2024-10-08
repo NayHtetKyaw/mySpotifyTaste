@@ -74,9 +74,9 @@ export default function TopArtists(): JSX.Element {
                     value={NumberOfArtist.toString()}
                     onChange={(value) => setNumberOfArtist(Number(value))}
                     data={[
-                        { value: "10", label: "10 Songs" },
-                        { value: "20", label: "20 Songs" },
-                        { value: "50", label: "50 Songs" },
+                        { value: "10", label: "10 Artists" },
+                        { value: "20", label: "20 Artists" },
+                        { value: "50", label: "50 Artists" },
                     ]}
                     placeholder="Select Number of Songs"
                 />

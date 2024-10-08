@@ -56,7 +56,7 @@ export default function TopAlbums(): JSX.Element {
     return (
         <>
             <Title order={1} mt="lg" className="text-center">
-                Top Songs
+                Top Albums
             </Title>
             <Flex justify="center" mt="md">
                 <Select
@@ -74,9 +74,9 @@ export default function TopAlbums(): JSX.Element {
                     value={NumberOfItem.toString()}
                     onChange={(value) => setNumberOfSongs(Number(value))}
                     data={[
-                        { value: "10", label: "10 Songs" },
-                        { value: "20", label: "20 Songs" },
-                        { value: "50", label: "50 Songs" },
+                        { value: "10", label: "10 albums" },
+                        { value: "20", label: "20 albums" },
+                        { value: "50", label: "50 albums" },
                     ]}
                     placeholder="Select Number of Songs"
                 />

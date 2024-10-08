@@ -1,5 +1,5 @@
 "use client";
-import { Box, Flex, Container, Text } from "@mantine/core";
+import { Title, Card, Box, Flex, Container, Text } from "@mantine/core";
 import Image from "next/image";
 import TopArtists from "./top-artists";
 import TopSongs from "./top-songs";
@@ -22,6 +22,8 @@ interface Track {
 export default function Overview(): JSX.Element {
   const [topArtists, setTopArtists] = useState<Artist[]>([]);
   const [topTracks, setTopTracks] = useState<Track[]>([]);
+  const [topSongsPlayTime, setTopSongsPlayTime] = useState<number>(0);
+  const [allTimePlayedTime, setAllTimePlayedTime] = useState<number>(0);
 
   useEffect(() => {
     const fetchTopItems = async () => {
@@ -41,6 +43,8 @@ export default function Overview(): JSX.Element {
           const data = await response.json();
           setTopArtists(data.topArtists || []);
           setTopTracks(data.topTracks || []);
+          setTopSongsPlayTime(data.topSongsPlayTime || 0);
+          setAllTimePlayedTime(data.allTimePlayedTime || 0);
         } else {
           console.error("Failed to fetch top items");
         }
