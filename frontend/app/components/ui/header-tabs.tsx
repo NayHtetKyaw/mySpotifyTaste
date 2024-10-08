@@ -1,6 +1,6 @@
 "use client";
 
-import { Tabs, Text } from "@mantine/core";
+import { Tabs } from "@mantine/core";
 import {
     IconPlaylist,
     IconMusicHeart,
@@ -12,6 +12,8 @@ import {
 import Overview from "./overview";
 import TopSongs from "./top-songs";
 import TopArtists from "./top-artists";
+import TopAlbums from "./top-albums";
+import TopGenres from "./top-genres";
 
 export default function HeaderTabs(): JSX.Element {
     return (
@@ -62,10 +64,10 @@ export default function HeaderTabs(): JSX.Element {
                 <TopArtists />
             </Tabs.Panel>
             <Tabs.Panel value="albums">
-                <Text size="md">Top albums</Text>
+                <TopAlbums />
             </Tabs.Panel>
             <Tabs.Panel value="genres">
-                <Text size="md">Top genres</Text>
+                <TopGenres />
             </Tabs.Panel>
         </Tabs>
     );

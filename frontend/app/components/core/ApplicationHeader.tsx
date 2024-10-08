@@ -51,9 +51,13 @@ export const navigationItems: NavigationItem[] = [
     },
     {
         title: "My Profile",
-        href: "/profile",
+        href: "/home",
         // icon: <ProfileIcon />
     },
+    {
+        title: "Account",
+        href: "/profile-setting",
+    }
 ];
 
 export default function ApplicationHeader({
