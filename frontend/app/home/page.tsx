@@ -15,7 +15,7 @@ interface userData {
 
     topTracks: any[];
     topArtists: any[];
-    topGenres: string[];
+    topGenre: string;
 }
 
 export default function HomePage(): JSX.Element {
@@ -73,9 +73,9 @@ export default function HomePage(): JSX.Element {
         <Container fluid>
             <PageHeader
                 username={userData.user.display_name}
-                profilePicture={userData.user.images[0]?.url || "/assets/images/myspotifytaste.png"}
+                profilePicture={userData.user.images[0].url || "/assets/images/myspotifytaste.png"}
                 followers={userData.user.followers}
-                favoriteGenre={userData.topArtists[0]?.genres[0] || "N/A"}
+                favoriteGenre={userData.topGenre || "N/A"}
             /> 
             <HeaderTabs />  
         </Container>

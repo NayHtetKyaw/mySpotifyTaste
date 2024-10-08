@@ -10,8 +10,8 @@ import {
 } from "@tabler/icons-react";
 
 import Overview from "./overview";
-import Artists from "./artists";
 import TopSongs from "./top-songs";
+import TopArtists from "./top-artists";
 
 export default function HeaderTabs(): JSX.Element {
     return (
@@ -59,7 +59,7 @@ export default function HeaderTabs(): JSX.Element {
             </Tabs.Panel>
 
             <Tabs.Panel value="artists">
-                <Artists />
+                <TopArtists />
             </Tabs.Panel>
             <Tabs.Panel value="albums">
                 <Text size="md">Top albums</Text>

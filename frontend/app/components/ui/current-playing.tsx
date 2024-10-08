@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, Text, Flex, Avatar } from "@mantine/core";
 import { useEffect, useState } from "react";
 
@@ -56,12 +58,11 @@ export default function CurrentPlaying(): JSX.Element {
             <Card
                 radius="md"
                 withBorder
-                c="dark"
-                bg="green"
-                className="lg:ml-auto lg:w-max min-w-80 md:ml-50"
+                c="white"
+                className="lg:ml-auto lg:w-max min-w-80 md:ml-50 bg-green-700"
             >
                 <Text mb="xs" fw="bold">
-                    Now Playing...
+                    Listening to ♫₊˚.🎧
                 </Text>
                 <Flex direction="row" gap="md">
                     <Avatar

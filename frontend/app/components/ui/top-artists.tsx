@@ -12,17 +12,16 @@ import {
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-interface Song {
+interface Artist {
     id: string;
     name: string;
-    artists: { name: string }[];
-    album: { images: { url: string }[] };
+    images: {url: string }[];
 }
 
-export default function TopSongs(): JSX.Element {
-    const [topSongs, setTopSongs] = useState<Song[]>([]);
+export default function TopArtists(): JSX.Element {
+    const [topArtist, setTopArtist] = useState<Artist[]>([]);
     const [term, setTerm] = useState("short_term");
-    const [NumberOfSongs, setNumberOfSongs] = useState(10);
+    const [NumberOfArtist, setNumberOfArtist] = useState(10);
 
     useEffect(() => {
         const fetchTopSongs = async () => {
@@ -38,11 +37,12 @@ export default function TopSongs(): JSX.Element {
                 }
 
                 const response = await fetch(
-                    `/api/spotify?access_token=${access_token}&term=${term}&limit=${NumberOfSongs}`
+                    `/api/spotify?access_token=${access_token}&term=${term}&limit=${NumberOfArtist}`
                 );
                 if (response.ok) {
                     const data = await response.json();
-                    setTopSongs(data.topTracks);
+                    console.log(data);
+                    setTopArtist(data.topArtists);
                 } else {
                     console.error("Failed to fetch top songs");
                 }
@@ -51,12 +51,12 @@ export default function TopSongs(): JSX.Element {
             }
         };
         fetchTopSongs();
-    }, [term, NumberOfSongs]);
+    }, [term, NumberOfArtist]);
 
     return (
         <>
             <Title order={1} mt="lg" className="text-center">
-                Top Songs
+                Top Artists
             </Title>
             <Flex justify="center" mt="md">
                 <Select
@@ -71,8 +71,8 @@ export default function TopSongs(): JSX.Element {
                     mr="md"
                 />
                 <Select
-                    value={NumberOfSongs.toString()}
-                    onChange={(value) => setNumberOfSongs(Number(value))}
+                    value={NumberOfArtist.toString()}
+                    onChange={(value) => setNumberOfArtist(Number(value))}
                     data={[
                         { value: "10", label: "10 Songs" },
                         { value: "20", label: "20 Songs" },
@@ -83,16 +83,16 @@ export default function TopSongs(): JSX.Element {
             </Flex>
             <Container bg="dark" p="md" mt="lg" className="rounded-md w-full">
                 <Flex direction="column" gap="md">
-                    {topSongs.map((song, index) => (
+                    {topArtist.map((artist, index) => (
                         <>
-                            <Flex key={song.id} w="100%">
+                            <Flex key={artist.id} w="100%">
                                 <Flex className="flex flex-row w-full items-center">
                                     <Box w="6%" className="text-right">
                                         <Text fw="bolder"> {index + 1}.</Text>
                                     </Box>
                                     <Image
                                         src={
-                                            song.album.images[0]?.url ||
+                                            artist.images[0]?.url ||
                                             "/assets/images/myspotifytaste.png"
                                         }
                                         width={50}
@@ -102,12 +102,7 @@ export default function TopSongs(): JSX.Element {
                                         // style={{ width: "auto", height: "auto" }}
                                     />
                                     <Box ml="sm">
-                                        <Title order={4}>{song.name}</Title>
-                                        <Text>
-                                            {song.artists
-                                                .map((artist) => artist.name)
-                                                .join(",")}
-                                        </Text>
+                                        <Title order={4}>{artist.name}</Title>
                                     </Box>
                                 </Flex>
                             </Flex>

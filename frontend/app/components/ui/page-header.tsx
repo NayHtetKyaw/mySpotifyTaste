@@ -1,4 +1,11 @@
-import { Container, Flex, Title, Text, Card, Avatar, Button} from "@mantine/core";
+import {
+    Container,
+    Flex,
+    Title,
+    Text,
+    Avatar,
+    Button,
+} from "@mantine/core";
 import CurrentPlaying from "./current-playing";
 
 interface PageHeaderProps {
@@ -8,13 +15,12 @@ interface PageHeaderProps {
     favoriteGenre: string;
 }
 
-export default function PageHeader({ 
+export default function PageHeader({
     username,
     profilePicture,
     followers,
     favoriteGenre,
 }: PageHeaderProps): JSX.Element {
-
     return (
         <Container fluid>
             <Flex
@@ -32,14 +38,14 @@ export default function PageHeader({
                     <Title order={1} className="">
                         Yahoo~ {username} ☆彡
                     </Title>
-                    <Text size="lg">
+                    <Text size="lg" fw="bold">
                         Followers : {followers.total}
                     </Text>
-                    <Text size="lg">
-                       {"Favorite genre"} : {favoriteGenre}
+                    <Text size="lg" fw="bold">
+                        {"Favorite genre"} : {favoriteGenre}
                     </Text>
-                    <Button radius={50} color="green" mt="md" >
-                        Follow on Spotify
+                    <Button radius={50} color="green" mt="md">
+                        View on Spotify
                     </Button>
                 </Flex>
                 <CurrentPlaying />
