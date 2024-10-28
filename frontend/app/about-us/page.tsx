@@ -142,10 +142,10 @@ export default function ContactForm() {
                 <center>
                     <Button
                         type="submit"
-                        color="white"
+                        color="green"
                         radius="xl"
                         size="md"
-                        style={{ width: "500px", color: "black" }}
+                
                     >
                         Send Messages
                     </Button>
