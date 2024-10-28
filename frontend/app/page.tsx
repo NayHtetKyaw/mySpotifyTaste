@@ -4,6 +4,8 @@ import { Title, Text, Container, Button, Flex, Box } from "@mantine/core";
 import Image from "next/image";
 import { IconCircleCheck } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { spotifyApi } from "@lib/api-client";
 
 const features = [
   "Visualize your Spotify listening history & stats",
@@ -14,22 +16,22 @@ const features = [
 ];
 
 export default function WelcomePage(): JSX.Element {
- const router = useRouter();
+  const router = useRouter();
 
-    const handleSpotifyLogin = async () => {
-        try {
-            const response = await fetch('/api/auth/login');
-            if (response.ok) {
-                const data = await response.json();
-                // Redirect to Spotify login page
-                window.location.href = data.loginUrl;
-            } else {
-                console.error('Failed to initiate login');
-            }
-        } catch (error) {
-            console.error('Error during login:', error);
-        }
-    };
+  useEffect(() => {
+    if (spotifyApi.isAuthenticated()) {
+      router.push("/dashboard");
+    }
+  }, [router]);
+
+  const handleSpotifyLogin = async () => {
+    try {
+      const loginUrl = await spotifyApi.getLoginUrl();
+      window.location.href = loginUrl;
+    } catch (error) {
+      console.log("Failed to get login URL", error);
+    }
+  };
 
   return (
     <Container className="text-center" fluid>

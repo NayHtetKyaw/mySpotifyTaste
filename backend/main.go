@@ -1,4 +1,3 @@
-// main.go
 package main
 
 import (
@@ -6,6 +5,7 @@ import (
 	"os"
 	"spotify-backend/handlers"
 	"spotify-backend/middleware"
+	"spotify-backend/utils"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -15,6 +15,10 @@ import (
 func main() {
 	if err := godotenv.Load(); err != nil {
 		log.Printf("Error loading .env file: %v", err)
+	}
+
+	if err := utils.InitializeSpotifyOAuth(); err != nil {
+		log.Fatalf("Failed to initialize Spotify OAuth: %v", err)
 	}
 
 	r := gin.Default()
@@ -38,5 +42,8 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
-	r.Run(":" + port)
+
+	if err := r.Run(":" + port); err != nil {
+		log.Fatalf("Failed to start server: %v", err)
+	}
 }
