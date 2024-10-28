@@ -1,55 +1,81 @@
 package handlers
 
 import (
+	"encoding/json"
 	"net/http"
 	"os"
+	"spotify-backend/utils"
 
 	"github.com/gin-gonic/gin"
-	"golang.org/x/oauth2"
 )
 
-var (
-	spotifyOauthConfig = &oauth2.Config{
-		ClientID:     os.Getenv("SPOTIFY_CLIENT_ID"),
-		ClientSecret: os.Getenv("SPOTIFY_CLIENT_SECRET"),
-		RedirectURL:  os.Getenv("SPOTIFY_REDIRECT_URL"),
-		Scopes: []string{
-			"user-read-private",
-			"user-read-email",
-			"user-top-read",
-			"user-read-recently-played",
-			"user-read-currently-played",
-			"user-library-read",
-			"user-follow-read",
-			"playlist-read-private",
-			"user-read-playback-state",
-			"user-read-playback-position",
-		},
-		Endpoint: oauth2.Endpoint{
-			AuthURL:  "https://accounts.spotify.com/authorize",
-			TokenURL: "https://accounts.spotify.com/api/token",
-		},
-	}
-)
-
-func handleSpotifyLogin(c *gin.Context) {
-	url := spotifyOauthConfig.AuthCodeURL("state")
-	c.JSON(http.StatusOK, gin.H{"loginUrl", url})
+func HandleSpotifyLogin(c *gin.Context) {
+	url := utils.SpotifyOauthConfig.AuthCodeURL("state")
+	c.JSON(http.StatusOK, gin.H{"loginUrl": url})
 }
 
-func handleSpotifyCallback(c *gin.Context) {
+func HandleSpotifyCallback(c *gin.Context) {
 	code := c.Query("code")
 	if code == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "There is no code provided"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No code provided"})
 		return
 	}
 
-	token, err := spotifyOauthConfig.Exchange(c, code)
+	token, err := utils.SpotifyOauthConfig.Exchange(c, code)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to exchange token"})
 		return
 	}
 
 	frontendURL := os.Getenv("FRONTEND_URL")
-	c.Redirect(http.StatusTemporaryRedirect, frontendURL+"/home?access_token="+token.AccessToken)
+	c.Redirect(http.StatusTemporaryRedirect,
+		frontendURL+"/home?access_token="+token.AccessToken)
+}
+
+func HandleTopArtists(c *gin.Context) {
+	token := c.GetString("access_token")
+	client := utils.GetSpotifyClient(token)
+
+	response, err := client.Get("https://api.spotify.com/v1/me/top/artists")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	defer response.Body.Close()
+
+	var result map[string]interface{}
+	json.NewDecoder(response.Body).Decode(&result)
+	c.JSON(http.StatusOK, result)
+}
+
+func HandleTopTracks(c *gin.Context) {
+	token := c.GetString("access_token")
+	client := utils.GetSpotifyClient(token)
+
+	response, err := client.Get("https://api.spotify.com/v1/me/top/tracks")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	defer response.Body.Close()
+
+	var result map[string]interface{}
+	json.NewDecoder(response.Body).Decode(&result)
+	c.JSON(http.StatusOK, result)
+}
+
+func HandleUserProfile(c *gin.Context) {
+	token := c.GetString("access_token")
+	client := utils.GetSpotifyClient(token)
+
+	response, err := client.Get("https://api.spotify.com/v1/me")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	defer response.Body.Close()
+
+	var result map[string]interface{}
+	json.NewDecoder(response.Body).Decode(&result)
+	c.JSON(http.StatusOK, result)
 }

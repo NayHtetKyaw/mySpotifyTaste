@@ -1,8 +1,11 @@
+// main.go
 package main
 
 import (
 	"log"
 	"os"
+	"spotify-backend/handlers"
+	"spotify-backend/middleware"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -11,25 +14,25 @@ import (
 
 func main() {
 	if err := godotenv.Load(); err != nil {
-		log.Printf("Error loading .env files : (", err)
+		log.Printf("Error loading .env file: %v", err)
 	}
 
 	r := gin.Default()
 
+	// Configure CORS
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{os.Getenv("FRONTEND_URL")},
+		AllowOrigins:     []string{"http://localhost:3000"},
 		AllowMethods:     []string{"GET", "POST"},
 		AllowHeaders:     []string{"Origin", "Authorization", "Content-Type"},
 		AllowCredentials: true,
 	}))
 
-	//Routes for the backend
-	r.GET("/api/auth/login", handleSpotifyLogin)
-	r.GET("/api/auth/callback", handleSpotifyCallback)
-	r.GET("/api/spotify/top-tracks", authMiddleware(), handleSpotifyTopTracks)
-	r.GET("/api/spotify/top-artists", authMiddleware(), handleSpotifyTopArtists)
-	r.GET("/api/spotify/recently-played", authMiddleware(), handleSpotifyRecentlyPlayed)
-	r.GET("/api/spotify/user-profile", authMiddleware(), handleSpotifyUserProfile)
+	// Routes
+	r.GET("/api/auth/login", handlers.HandleSpotifyLogin)
+	r.GET("/api/auth/callback", handlers.HandleSpotifyCallback)
+	r.GET("/api/spotify/top-artists", middleware.AuthMiddleware(), handlers.HandleTopArtists)
+	r.GET("/api/spotify/top-tracks", middleware.AuthMiddleware(), handlers.HandleTopTracks)
+	r.GET("/api/spotify/user-profile", middleware.AuthMiddleware(), handlers.HandleUserProfile)
 
 	port := os.Getenv("PORT")
 	if port == "" {
