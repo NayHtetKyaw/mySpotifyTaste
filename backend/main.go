@@ -32,6 +32,7 @@ func main() {
 	}))
 
 	// Routes
+
 	r.GET("/api/auth/login", handlers.HandleSpotifyLogin)
 	r.GET("/api/auth/callback", handlers.HandleSpotifyCallback)
 	r.GET("/api/spotify/top-artists", middleware.AuthMiddleware(), handlers.HandleTopArtists)

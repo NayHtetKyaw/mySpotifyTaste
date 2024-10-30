@@ -20,7 +20,7 @@ export default function WelcomePage(): JSX.Element {
 
   useEffect(() => {
     if (spotifyApi.isAuthenticated()) {
-      router.push("/dashboard");
+      router.push("/");
     }
   }, [router]);
 

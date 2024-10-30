@@ -6,56 +6,30 @@ import {
     Text,
     Select,
     Title,
+    Center,
     Container,
     Divider,
+    Loader,
 } from "@mantine/core";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-
-interface Artist {
-    id: string;
-    name: string;
-    images: {url: string }[];
-}
+import { useSpotifyData } from "@components/spotify/use-spotify-data";
 
 export default function TopArtists(): JSX.Element {
-    const [topArtist, setTopArtist] = useState<Artist[]>([]);
-    const [term, setTerm] = useState("short_term");
-    const [NumberOfArtist, setNumberOfArtist] = useState(10);
+    const SpotifyData = useSpotifyData();
 
-    useEffect(() => {
-        const fetchTopSongs = async () => {
-            try {
-                const urlParams = new URLSearchParams(window.location.search);
-                const access_token =
-                    urlParams.get("access_token") ||
-                    localStorage.getItem("spotify_access_token");
-
-                if (!access_token) {
-                    console.error("No access token available");
-                    return;
-                }
-
-                const response = await fetch(
-                    `/api/spotify?access_token=${access_token}&term=${term}&limit=${NumberOfArtist}`
-                );
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log(data);
-                    setTopArtist(data.topArtists);
-                } else {
-                    console.error("Failed to fetch top songs");
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        };
-        fetchTopSongs();
-    }, [term, NumberOfArtist]);
+    if (!SpotifyData) {
+        return (
+            <Container bg="dark" p="md" mt="lg" className="rounded-md w-full">
+                <Center>
+                    <Loader type="bar" size={40} />
+                </Center>
+            </Container>
+        )
+    }
 
     return (
         <>
-            <Title order={1} mt="lg" className="text-center">
+            {/* <Title order={1} mt="lg" className="text-center">
                 Top Artists
             </Title>
             <Flex justify="center" mt="md">
@@ -80,10 +54,10 @@ export default function TopArtists(): JSX.Element {
                     ]}
                     placeholder="Select Number of Songs"
                 />
-            </Flex>
+            </Flex> */}
             <Container bg="dark" p="md" mt="lg" className="rounded-md w-full">
                 <Flex direction="column" gap="md">
-                    {topArtist.map((artist, index) => (
+                    {SpotifyData.topArtists.map((artist, index) => (
                         <>
                             <Flex key={artist.id} w="100%">
                                 <Flex className="flex flex-row w-full items-center">

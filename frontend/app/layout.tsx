@@ -1,8 +1,10 @@
 import { ApplicationShell } from "@components/core/AppShell";
+import SpotifyData from "@components/spotify/spotify-data-provider";
 import { ColorSchemeScript, MantineProvider, createTheme } from "@mantine/core";
 import type { Metadata } from "next";
 import "@mantine/core/styles.css";
 import "./styles/globals.css";
+import Spotify from "next-auth/providers/spotify";
 
 export const metadata: Metadata = {
     title: "My Spotify Taste",
@@ -48,6 +50,7 @@ export default function RootLayout({
             </head>
             <body>
                 <MantineProvider theme={theme} defaultColorScheme="dark">
+                    <SpotifyData />
                     <ApplicationShell>{children}</ApplicationShell>
                 </MantineProvider>
             </body>
