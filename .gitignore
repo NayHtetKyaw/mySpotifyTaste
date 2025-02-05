@@ -1,0 +1,48 @@
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Go
+bin/
+dist/
+vendor/
+*.exe
+*.test
+*.prof
+*.cover
+go.work
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+*.log.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Binaries
+/bin
+/tmp
+
+# Kubernetes
+kubeconfig.yaml
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# Build artifacts
+**/__pycache__
+**/*.pb.go
+**/*.pb.gw.go
