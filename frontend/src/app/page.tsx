@@ -12,21 +12,21 @@ const features = [
 
 export default function HomePage() {
   return (
-    <Container p="lg">
+    <Container>
       <Flex justify="center" direction="column">
         <Box className="flex flex-col items-center text-center" m="lg">
-          <Title size={50}>Welcome to MySpotifyTaste</Title>
-          <Title order={3} c="green" my="md">
+          <Title size={40}>Welcome to MySpotifyTaste</Title>
+          <Title order={4} c="green" my="md">
             Visualize your Spotify listening history & stats
           </Title>
         </Box>
 
-        <Flex wrap="wrap" justify="space-evenly" direction="row" align="center">
+        <Flex wrap="wrap" justify="space-evenly" align="center">
           <Box>
             <Image
               src="/assets/images/myspotifytaste.png"
-              width={400}
-              height={400}
+              width={500}
+              height={500}
               alt="Spotify Logo"
               className="rounded-full"
             />
@@ -36,12 +36,12 @@ export default function HomePage() {
               Features
             </Title>
             {features.map((feature) => (
-              <Flex key={feature} align="start" gap="xs" my="sm">
+              <Flex key={feature} gap="xs" my="xs">
                 <IconCircleCheck
                   size={25}
-                  className="text-green-400 shrink-0"
+                  className="text-green-400 shrink-0 self-center"
                 />
-                <Text className="text-start self-center" size="xl">
+                <Text className="text-start self-center" size="lg">
                   {feature}
                 </Text>
               </Flex>
