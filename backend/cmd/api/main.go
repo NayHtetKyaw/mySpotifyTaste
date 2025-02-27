@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -13,12 +14,10 @@ import (
 )
 
 func main() {
-	// Load environment variables from .env file
 	if err := godotenv.Load(); err != nil {
 		log.Println("Warning: No .env file found")
 	}
 
-	// Get environment variables
 	clientID := os.Getenv("SPOTIFY_CLIENT_ID")
 	clientSecret := os.Getenv("SPOTIFY_CLIENT_SECRET")
 	redirectURL := os.Getenv("SPOTIFY_REDIRECT_URI")
@@ -30,7 +29,6 @@ func main() {
 		log.Fatal("Missing required environment variables")
 	}
 
-	// Default port if not provided
 	if port == "" {
 		port = "8080"
 	}
@@ -39,46 +37,51 @@ func main() {
 	authService := auth.NewSpotifyAuthService(clientID, clientSecret, redirectURL, jwtSecret)
 	spotifyService := spotify.NewService(clientID, clientSecret)
 
-	// Create Gin router
 	r := gin.Default()
 
-	// Set CORS headers
 	r.Use(func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
-
+		c.Writer.Header().Set("Access-Control-Allow-Headers",
+			"Content-Type, Authorization, Accept, Origin, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods",
+			"GET, POST, PUT, DELETE, OPTIONS, PATCH")
 		if c.Request.Method == "OPTIONS" {
 			c.AbortWithStatus(204)
 			return
 		}
-
 		c.Next()
 	})
 
-	// Create and register handlers
-	authHandler := auth.NewAuthHandler(authService)
-	authHandler.RegisterRoutes(r)
+	authGroup := r.Group("/api/auth")
+	api := r.Group("/api")
 
-	// Protected routes
-	protected := r.Group("/api")
-	protected.Use(middleware.AuthMiddleware(jwtSecret))
-	{
-		spotifyHandler := spotify.NewHandler(spotifyService)
-		spotifyHandler.RegisterRoutes(protected)
-	}
-
+	// Health check endpoint
 	r.GET("/", func(ctx *gin.Context) {
 		ctx.JSON(200, gin.H{"message": "home"})
 	})
 
-	// Health check endpoint
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{"status": "ok"})
 	})
 
-	// Start the server
+	// Auth validation endpoint
+	authGroup.GET("/validate", middleware.AuthMiddleware(jwtSecret), func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"valid": true})
+	})
+
+	// Auth routes
+	authHandler := auth.NewAuthHandler(authService)
+	authHandler.RegisterRoutes(r)
+
+	// Protected routes - IMPORTANT: Pass the api group to RegisterRoutes
+	protected := api.Group("") // Empty group to keep the /api prefix
+	protected.Use(middleware.AuthMiddleware(jwtSecret))
+	{
+		spotifyHandler := spotify.NewHandler(spotifyService)
+		spotifyHandler.RegisterRoutes(protected) // This will register under /api/spotify/...
+	}
+
 	log.Printf("Starting server on port %s", port)
 	if err := r.Run(":" + port); err != nil {
 		log.Fatal(err)

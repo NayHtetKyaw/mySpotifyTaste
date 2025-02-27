@@ -1,7 +1,9 @@
 package auth
 
 import (
+	"encoding/json"
 	"net/http"
+	"net/url"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -44,6 +46,7 @@ func (h *AuthHandler) Login(c *gin.Context) {
 func (h *AuthHandler) Callback(c *gin.Context) {
 	code := c.Query("code")
 	state := c.Query("state")
+	redirectURL := c.Query("redirect_uri")
 
 	if code == "" {
 		if errMsg := c.Query("error"); errMsg != "" {
@@ -66,10 +69,22 @@ func (h *AuthHandler) Callback(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"token": jwtToken,
-		"user":  user,
-	})
+	frontendURL := "http://localhost:3000/auth/callback"
+	if redirectURL != "" {
+		frontendURL = redirectURL
+	}
+
+	frontendURL += "?token=" + jwtToken + "&user=" + encodeUserToJSON(user)
+
+	c.Redirect(http.StatusTemporaryRedirect, frontendURL)
+}
+
+func encodeUserToJSON(user *User) string {
+	jsonBytes, err := json.Marshal(user)
+	if err != nil {
+		return ""
+	}
+	return url.QueryEscape(string(jsonBytes))
 }
 
 func (h *AuthHandler) RefreshToken(c *gin.Context) {

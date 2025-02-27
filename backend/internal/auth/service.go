@@ -13,7 +13,6 @@ import (
 	"golang.org/x/oauth2"
 )
 
-// User represents the minimal user data we store after authentication
 type User struct {
 	ID           string `json:"id"`
 	DisplayName  string `json:"display_name"`
@@ -21,11 +20,10 @@ type User struct {
 	ProfileImage string `json:"profile_image"`
 }
 
-// SpotifyAuthService handles authentication with Spotify and creating JWT tokens
 type SpotifyAuthService struct {
 	authenticator *spotifyauth.Authenticator
 	jwtSecret     []byte
-	stateStore    map[string]time.Time // Simple in-memory store for state validation
+	stateStore    map[string]time.Time
 }
 
 func NewSpotifyAuthService(clientID, clientSecret, redirectURL, jwtSecret string) *SpotifyAuthService {
@@ -49,7 +47,6 @@ func NewSpotifyAuthService(clientID, clientSecret, redirectURL, jwtSecret string
 	}
 }
 
-// GetAuthURL generates a URL for the user to authorize our app with Spotify
 func (s *SpotifyAuthService) GetAuthURL() (string, string, error) {
 	b := make([]byte, 32)
 	_, err := rand.Read(b)
@@ -104,7 +101,6 @@ func (s *SpotifyAuthService) Exchange(ctx context.Context, code, state string) (
 	return token, user, nil
 }
 
-// GenerateJWT creates a JWT token containing user info
 func (s *SpotifyAuthService) GenerateJWT(user *User, spotifyToken *oauth2.Token) (string, error) {
 	expiresAt := time.Now().Add(time.Hour)
 	if !spotifyToken.Expiry.IsZero() {

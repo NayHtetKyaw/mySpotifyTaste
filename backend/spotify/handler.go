@@ -17,6 +17,24 @@ func NewHandler(service *Service) *Handler {
 	}
 }
 
+// GetUserProfile gets the authenticated user's profile
+func (h *Handler) GetUserProfile(c *gin.Context) {
+	token, exists := c.Get("spotify_token")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "No Spotify token available"})
+		return
+	}
+
+	client := h.service.GetClient(token.(string))
+	user, err := client.CurrentUser(c)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get user profile"})
+		return
+	}
+
+	c.JSON(http.StatusOK, user)
+}
+
 // RegisterRoutes registers the Spotify routes with the provided router
 func (h *Handler) RegisterRoutes(r *gin.RouterGroup) {
 	spotify := r.Group("/spotify")
@@ -25,6 +43,8 @@ func (h *Handler) RegisterRoutes(r *gin.RouterGroup) {
 		spotify.GET("/top-tracks", h.GetTopTracks)
 		spotify.GET("/top-artists", h.GetTopArtists)
 		spotify.GET("/recently-played", h.GetRecentlyPlayed)
+		spotify.GET("/me", h.GetUserProfile)
+
 	}
 }
 
