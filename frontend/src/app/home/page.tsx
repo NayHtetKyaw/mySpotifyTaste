@@ -42,12 +42,17 @@ export default function Home() {
   const [currentlyPlaying, setCurrentlyPlaying] =
     useState<CurrentlyPlaying | null>(null);
   const [loading, setLoading] = useState(true);
+  const [profileImage, setProfileImage] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const user = await fetcher("/api/spotify/me");
         setUserData(user);
+
+        if (user.images?.[0]?.url) {
+          setProfileImage(user.images[0].url);
+        }
 
         const nowPlaying = await fetcher("/api/spotify/now-playing");
         setCurrentlyPlaying(nowPlaying);
@@ -62,7 +67,12 @@ export default function Home() {
   }, []);
 
   if (loading) {
-    return <LoadingOverlay visible={true} />;
+    return (
+      <LoadingOverlay
+        visible={true}
+        loaderProps={{ color: "green", type: "bars" }}
+      />
+    );
   }
 
   return (
@@ -78,9 +88,7 @@ export default function Home() {
         >
           <Box>
             <Avatar
-              src={
-                userData?.profile_image || "/assets/images/myspotifytaste.png"
-              }
+              src={profileImage || "/assets/images/myspotifytaste.png"}
               w={200}
               h={200}
               alt="User Profile"
@@ -88,15 +96,14 @@ export default function Home() {
             />
           </Box>
           <Box className="flex flex-col items-start">
-            <Text size="xl" fw="bold">
-              Username: {userData?.display_name}
-            </Text>
+            <Title fw="bold" c="green">
+              {userData?.display_name}
+            </Title>
             <Text>Followers: {userData?.followers?.total || 0}</Text>
-            <Text>Email: {userData?.email}</Text>
 
-            <Flex mt="sm" direction="column" w="100%">
-              <Title order={4}>Listening to:</Title>
-              {currentlyPlaying?.playing ? (
+            {currentlyPlaying?.playing ? (
+              <Flex mt="sm" direction="column" w="100%">
+                <Title order={4}>Listening to 🎧:</Title>
                 <Card bg="green" w="100%">
                   <Box className="flex">
                     <Image
@@ -119,10 +126,10 @@ export default function Home() {
                     </Box>
                   </Box>
                 </Card>
-              ) : (
-                <Text>Nothing at the moment</Text>
-              )}
-            </Flex>
+              </Flex>
+            ) : (
+              <></>
+            )}
           </Box>
         </Flex>
       </Group>

@@ -40,16 +40,30 @@ func main() {
 	r := gin.Default()
 
 	r.Use(func(c *gin.Context) {
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+		allowedOrigins := []string{
+			"http://localhost:3000",
+			"https://production-domain.com",
+		}
+
+		origin := c.Request.Header.Get("Origin")
+		for _, o := range allowedOrigins {
+			if origin == o {
+				c.Writer.Header().Set("Access-Control-Allow-Origin", origin)
+				break
+			}
+		}
+
 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 		c.Writer.Header().Set("Access-Control-Allow-Headers",
-			"Content-Type, Authorization, Accept, Origin, X-Requested-With")
+			"Origin, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, Accept, Cache-Control, X-Requested-With")
 		c.Writer.Header().Set("Access-Control-Allow-Methods",
-			"GET, POST, PUT, DELETE, OPTIONS, PATCH")
+			"GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD")
+
 		if c.Request.Method == "OPTIONS" {
 			c.AbortWithStatus(204)
 			return
 		}
+
 		c.Next()
 	})
 

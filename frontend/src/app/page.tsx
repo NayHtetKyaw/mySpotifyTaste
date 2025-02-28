@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  Title,
-  Text,
-  Container,
-  Button,
-  Flex,
-  Box,
-  localStorageColorSchemeManager,
-} from "@mantine/core";
+import { Title, Text, Container, Button, Flex, Box } from "@mantine/core";
 import Image from "next/image";
 import { IconCircleCheck } from "@tabler/icons-react";
 

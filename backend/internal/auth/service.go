@@ -35,6 +35,8 @@ func NewSpotifyAuthService(clientID, clientSecret, redirectURL, jwtSecret string
 			spotifyauth.ScopeUserReadPrivate,
 			spotifyauth.ScopeUserReadEmail,
 			spotifyauth.ScopeUserReadCurrentlyPlaying,
+			spotifyauth.ScopeUserLibraryRead,
+			spotifyauth.ScopePlaylistReadPrivate,
 			spotifyauth.ScopeUserTopRead,
 			spotifyauth.ScopeUserReadRecentlyPlayed,
 		),
@@ -78,20 +80,30 @@ func (s *SpotifyAuthService) Exchange(ctx context.Context, code, state string) (
 	if !s.ValidateState(state) {
 		return nil, nil, errors.New("invalid or expired state")
 	}
+
 	token, err := s.authenticator.Exchange(ctx, code)
 	if err != nil {
 		return nil, nil, err
 	}
+
 	httpClient := s.authenticator.Client(ctx, token)
 	client := spotify.New(httpClient)
 	spotifyUser, err := client.CurrentUser(ctx)
 	if err != nil {
 		return nil, nil, err
 	}
+
 	profileImage := ""
 	if len(spotifyUser.Images) > 0 {
-		profileImage = spotifyUser.Images[0].URL
+		largestImage := spotifyUser.Images[1]
+		for _, img := range spotifyUser.Images {
+			if img.Width > largestImage.Width {
+				largestImage = img
+			}
+		}
+		profileImage = largestImage.URL
 	}
+
 	user := &User{
 		ID:           spotifyUser.ID,
 		DisplayName:  spotifyUser.DisplayName,
