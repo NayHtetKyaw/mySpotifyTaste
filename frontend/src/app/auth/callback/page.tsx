@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Center, Container, Loader } from "@mantine/core";
+import { Center, Flex, Loader } from "@mantine/core";
 
 export default function CallbackPage() {
   const router = useRouter();
@@ -36,32 +36,38 @@ export default function CallbackPage() {
     const handleAuth = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/auth/callback?code=${code}&state=${state}`,
+          `${process.env.NEXT_PUBLIC_API_BASE}/auth/callback?${window.location.search}`,
         );
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.details || "Authentication failed");
+        }
 
         const { token, user } = await response.json();
 
+        // Store credentials
         localStorage.setItem("jwt", token);
         localStorage.setItem("user", JSON.stringify(user));
 
-        window.dispatchEvent(new Event("storage"));
-        console.log("Authentication Success");
-
-        router.push("/home");
+        // Redirect to home
+        window.location.href = "/home";
       } catch (error) {
-        console.log("Authentication failed: ", error);
-        router.push("/");
+        console.error("Authentication error:", error);
+        window.location.href = "/?error=auth_failed";
       }
     };
+
+    handleAuth();
 
     if (code && state) handleAuth();
   }, [router, searchParams]);
 
   return (
-    <Container>
+    <Flex mih={1000} align="center">
       <Center>
         <Loader color="green" size="lg" type="bars" />
       </Center>
-    </Container>
+    </Flex>
   );
 }
