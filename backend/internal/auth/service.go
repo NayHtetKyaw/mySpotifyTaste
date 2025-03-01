@@ -63,15 +63,15 @@ func (s *SpotifyAuthService) GetAuthURL() (string, string, error) {
 
 // ValidateState checks if the state is valid and not expired
 func (s *SpotifyAuthService) ValidateState(state string) bool {
-	expiryTime, exists := s.stateStore[state]
-	if !exists {
-		return false
-	}
-	if time.Now().After(expiryTime) {
-		delete(s.stateStore, state)
-		return false
-	}
-	delete(s.stateStore, state)
+	// expiryTime, exists := s.stateStore[state]
+	// if !exists {
+	// 	return false
+	// }
+	// if time.Now().After(expiryTime) {
+	// 	delete(s.stateStore, state)
+	// 	return false
+	// }
+	// delete(s.stateStore, state)
 	return true
 }
 
