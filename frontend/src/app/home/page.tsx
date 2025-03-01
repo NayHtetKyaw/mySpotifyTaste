@@ -15,6 +15,7 @@ import Image from "next/image";
 
 import { useState, useEffect } from "react";
 import { fetcher } from "@/lib/api";
+import internal from "stream";
 
 interface UserData {
   id: string;
@@ -53,9 +54,6 @@ export default function Home() {
         if (user.images?.[0]?.url) {
           setProfileImage(user.images[0].url);
         }
-
-        const nowPlaying = await fetcher("/api/spotify/now-playing");
-        setCurrentlyPlaying(nowPlaying);
       } catch (error) {
         console.error("Failed to fetch data:", error);
       } finally {
@@ -64,6 +62,25 @@ export default function Home() {
     };
 
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    fetchCurrentlyPlaying();
+
+    const interval = setInterval(() => {
+      fetchCurrentlyPlaying();
+    }, 15000);
+
+    async function fetchCurrentlyPlaying() {
+      try {
+        const currentlyPlayingTrack = await fetcher("/api/spotify/now-playing");
+        setCurrentlyPlaying(currentlyPlayingTrack);
+      } catch (error) {
+        console.error("Failed to get currently playing song!", error);
+      }
+    }
+
+    return () => clearInterval(interval);
   }, []);
 
   if (loading) {
