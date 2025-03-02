@@ -130,10 +130,12 @@ export default function Home() {
                       width={50}
                       height={50}
                       alt="Album Cover"
-                      className="rounded-lg"
+                      className="rounded-lg max-h-[50px] max-w-[50px] self-center"
                     />
                     <Box mx="sm" className="text-zinc-800">
-                      <Title order={4}>{currentlyPlaying.track?.name}</Title>
+                      <Title order={4} textWrap="wrap">
+                        {currentlyPlaying.track?.name}
+                      </Title>
                       <Text>
                         {currentlyPlaying.track?.artists
                           .map((artist) => artist.name)

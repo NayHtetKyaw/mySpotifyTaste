@@ -15,6 +15,7 @@ export default function MobileNavigation({ opened }: MobileNavigationProps) {
               label={items.title}
               href={items.href}
               leftSection={items.icon}
+              style={{ fontSize: "var(--mantine-font-size-xl)" }}
             />
           </Flex>
         ))}
