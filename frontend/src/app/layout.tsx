@@ -3,8 +3,9 @@ import "./globals.css";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 
-import { MantineProvider, createTheme, AppShell } from "@mantine/core";
+import { MantineProvider, createTheme } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
+import ApplicationShell from "@components/core/ApplicationShell";
 
 export const metadata: Metadata = {
   title: "MySpotifyTaste",
@@ -40,7 +41,7 @@ export default function RootLayout({
       <body>
         <MantineProvider theme={theme} defaultColorScheme="dark">
           <Notifications />
-          <AppShell>{children}</AppShell>
+          <ApplicationShell>{children}</ApplicationShell>
         </MantineProvider>
       </body>
     </html>

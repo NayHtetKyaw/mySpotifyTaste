@@ -15,7 +15,6 @@ import Image from "next/image";
 
 import { useState, useEffect } from "react";
 import { fetcher } from "@/lib/api";
-import internal from "stream";
 
 interface UserData {
   id: string;
@@ -121,7 +120,7 @@ export default function Home() {
             {currentlyPlaying?.playing ? (
               <Flex mt="sm" direction="column" w="100%">
                 <Title order={4}>Listening to 🎧:</Title>
-                <Card bg="green" w="100%">
+                <Card bg="green" w="100%" p="xs">
                   <Box className="flex">
                     <Image
                       src={
