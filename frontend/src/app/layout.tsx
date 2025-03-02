@@ -3,7 +3,7 @@ import "./globals.css";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 
-import { MantineProvider, createTheme } from "@mantine/core";
+import { MantineProvider, createTheme, NavLink } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import ApplicationShell from "@components/core/ApplicationShell";
 

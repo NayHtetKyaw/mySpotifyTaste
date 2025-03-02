@@ -3,9 +3,10 @@
 import { AppShell } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { ReactNode, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 import ApplicatoinHeader from "./ApplicationHeader";
-import { usePathname } from "next/navigation";
+import MobileNavigation from "./MobileNavigation";
 
 export default function ApplicationShell({
   children,
@@ -30,7 +31,7 @@ export default function ApplicationShell({
       padding="md"
     >
       <ApplicatoinHeader opened={opened} toggle={toggle} />
-      <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
+      <MobileNavigation opened={opened} />
       <AppShell.Main>{children}</AppShell.Main>
     </AppShell>
   );

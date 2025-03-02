@@ -26,7 +26,7 @@ interface NavigationItems {
   icon: ReactElement;
 }
 
-const navigationItems: NavigationItems[] = [
+export const navigationItems: NavigationItems[] = [
   {
     title: "Home",
     href: "/home",
