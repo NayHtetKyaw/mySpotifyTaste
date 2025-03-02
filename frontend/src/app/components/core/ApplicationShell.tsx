@@ -1,25 +1,31 @@
 "use client";
 
-import { AppShell, Burger, Flex, Title } from "@mantine/core";
+import { AppShell } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 import ApplicatoinHeader from "./ApplicationHeader";
+import { usePathname } from "next/navigation";
 
 export default function ApplicationShell({
   children,
 }: {
   children: ReactNode;
 }) {
-  const [opened, { toggle }] = useDisclosure();
+  const [opened, { toggle, close }] = useDisclosure();
+
+  const pathname = usePathname();
+  useEffect(() => {
+    close();
+  }, [pathname, close]);
 
   return (
     <AppShell
       header={{ height: 60 }}
       navbar={{
         width: 300,
-        breakpoint: "sm",
-        collapsed: { mobile: !opened },
+        breakpoint: "lg",
+        collapsed: { desktop: true, mobile: !opened },
       }}
       padding="md"
     >
