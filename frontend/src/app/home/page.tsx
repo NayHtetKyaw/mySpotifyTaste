@@ -54,8 +54,6 @@ export default function Home() {
           setProfileImage(user.images[0].url);
         }
 
-        const nowPlaying = await fetcher("/api/spotify/now-playing");
-        setCurrentlyPlaying(nowPlaying);
       } catch (error) {
         console.error("Failed to fetch data:", error);
       } finally {
@@ -64,6 +62,25 @@ export default function Home() {
     };
 
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    fetchCurrentlyPlaying();
+
+    const interval = setInterval(() => {
+      fetchCurrentlyPlaying();
+    }, 15000);
+
+    async function fetchCurrentlyPlaying() {
+      try {
+        const currentlyPlayingTrack = await fetcher("/api/spotify/now-playing");
+        setCurrentlyPlaying(currentlyPlayingTrack);
+      } catch (error) {
+        console.error("Failed to get currently playing song!", error);
+      }
+    }
+
+    return () => clearInterval(interval);
   }, []);
 
   if (loading) {
@@ -104,7 +121,9 @@ export default function Home() {
             {currentlyPlaying?.playing ? (
               <Flex mt="sm" direction="column" w="100%">
                 <Title order={4}>Listening to 🎧:</Title>
-                <Card bg="green" w="100%">
+
+                <Card bg="green" w="100%" p="xs">
+
                   <Box className="flex">
                     <Image
                       src={
@@ -114,10 +133,12 @@ export default function Home() {
                       width={50}
                       height={50}
                       alt="Album Cover"
-                      className="rounded-lg"
+                      className="rounded-lg max-h-[50px] max-w-[50px] self-center"
                     />
                     <Box mx="sm" className="text-zinc-800">
-                      <Title order={4}>{currentlyPlaying.track?.name}</Title>
+                      <Title order={4} textWrap="wrap">
+                        {currentlyPlaying.track?.name}
+                      </Title>
                       <Text>
                         {currentlyPlaying.track?.artists
                           .map((artist) => artist.name)

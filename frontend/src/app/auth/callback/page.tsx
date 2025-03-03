@@ -64,7 +64,9 @@ export default function CallbackPage() {
   }, [router, searchParams]);
 
   return (
-    <Flex mih={1000} align="center">
+
+    <Flex mih={1000} align="center" justify="center">
+
       <Center>
         <Loader color="green" size="lg" type="bars" />
       </Center>

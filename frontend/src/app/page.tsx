@@ -1,6 +1,15 @@
 "use client";
 
-import { Title, Text, Container, Button, Flex, Box } from "@mantine/core";
+import {
+  Title,
+  Text,
+  Container,
+  Button,
+  Flex,
+  Box,
+  LoadingOverlay,
+} from "@mantine/core";
+
 import Image from "next/image";
 import { IconCircleCheck } from "@tabler/icons-react";
 
@@ -19,6 +28,7 @@ const features = [
 export default function HomePage() {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const checkAuth = () => {
@@ -37,7 +47,7 @@ export default function HomePage() {
     const token = localStorage.getItem("jwt");
 
     if (token) {
-      router.replace("/home");
+      router.push("/home");
       return;
     }
 
@@ -60,8 +70,19 @@ export default function HomePage() {
       window.location.href = data.login_url;
     } catch (error) {
       console.error("Login failed:", error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <LoadingOverlay
+        visible={true}
+        loaderProps={{ color: "green", type: "bars" }}
+      />
+    );
+  }
 
   return (
     <AuthWrapper>

@@ -57,10 +57,11 @@ func (h *AuthHandler) Callback(c *gin.Context) {
 		return
 	}
 
-	if !h.service.ValidateState(state) {
-		c.JSON(400, gin.H{"error": "Invalid state parameter"})
-		return
-	}
+	// if !h.service.ValidateState(state) {
+	// 	c.JSON(400, gin.H{"error": "Invalid state parameter"})
+	// 	return
+	// }
+
 
 	token, user, err := h.service.Exchange(c, code, state)
 	if err != nil {
@@ -81,11 +82,12 @@ func (h *AuthHandler) Callback(c *gin.Context) {
 
 	frontendURL += "?token=" + jwtToken + "&user=" + encodeUserToJSON(user)
 
-	// c.Redirect(http.StatusTemporaryRedirect, frontendURL)
-	c.JSON(200, gin.H{
-		"token": jwtToken,
-		"user":  user,
-	})
+	c.Redirect(http.StatusTemporaryRedirect, frontendURL)
+	// c.JSON(200, gin.H{
+	// 	"token": jwtToken,
+	// 	"user":  user,
+	// })
+
 }
 
 func encodeUserToJSON(user *User) string {
