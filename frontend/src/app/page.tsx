@@ -9,6 +9,7 @@ import {
   Box,
   LoadingOverlay,
 } from "@mantine/core";
+
 import Image from "next/image";
 import { IconCircleCheck } from "@tabler/icons-react";
 

@@ -62,6 +62,7 @@ func (h *AuthHandler) Callback(c *gin.Context) {
 	// 	return
 	// }
 
+
 	token, user, err := h.service.Exchange(c, code, state)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -86,6 +87,7 @@ func (h *AuthHandler) Callback(c *gin.Context) {
 	// 	"token": jwtToken,
 	// 	"user":  user,
 	// })
+
 }
 
 func encodeUserToJSON(user *User) string {

@@ -53,6 +53,7 @@ export default function Home() {
         if (user.images?.[0]?.url) {
           setProfileImage(user.images[0].url);
         }
+
       } catch (error) {
         console.error("Failed to fetch data:", error);
       } finally {
@@ -120,7 +121,9 @@ export default function Home() {
             {currentlyPlaying?.playing ? (
               <Flex mt="sm" direction="column" w="100%">
                 <Title order={4}>Listening to 🎧:</Title>
+
                 <Card bg="green" w="100%" p="xs">
+
                   <Box className="flex">
                     <Image
                       src={
