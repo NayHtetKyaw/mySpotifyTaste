@@ -12,9 +12,10 @@ import {
   LoadingOverlay,
 } from "@mantine/core";
 import Image from "next/image";
-
+import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { fetcher } from "@/lib/api";
+import { useAuth } from "../auth/hooks/useAuth";
 
 interface UserData {
   id: string;
@@ -38,6 +39,9 @@ interface CurrentlyPlaying {
 }
 
 export default function Home() {
+  const router = useRouter();
+  const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
+
   const [userData, setUserData] = useState<UserData | null>(null);
   const [currentlyPlaying, setCurrentlyPlaying] =
     useState<CurrentlyPlaying | null>(null);
@@ -45,7 +49,7 @@ export default function Home() {
   const [profileImage, setProfileImage] = useState<string>("");
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchUserData = async () => {
       try {
         const user = await fetcher("/api/spotify/me");
         setUserData(user);
@@ -53,43 +57,50 @@ export default function Home() {
         if (user.images?.[0]?.url) {
           setProfileImage(user.images[0].url);
         }
-
       } catch (error) {
         console.error("Failed to fetch data:", error);
+        localStorage.removeItem("jwt");
+        router.push("/login");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
-  }, []);
+    if (isAuthenticated) {
+      fetchUserData();
+    }
+  }, [isAuthenticated, router]);
 
   useEffect(() => {
-    fetchCurrentlyPlaying();
+    if (!isAuthenticated) return;
 
-    const interval = setInterval(() => {
-      fetchCurrentlyPlaying();
-    }, 15000);
-
-    async function fetchCurrentlyPlaying() {
+    const fetchCurrentlyPlaying = async () => {
       try {
         const currentlyPlayingTrack = await fetcher("/api/spotify/now-playing");
         setCurrentlyPlaying(currentlyPlayingTrack);
       } catch (error) {
         console.error("Failed to get currently playing song!", error);
       }
-    }
+    };
+
+    fetchCurrentlyPlaying();
+
+    const interval = setInterval(fetchCurrentlyPlaying, 10000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isAuthenticated]);
 
-  if (loading) {
+  if (isAuthLoading || loading) {
     return (
       <LoadingOverlay
         visible={true}
         loaderProps={{ color: "green", type: "bars" }}
       />
     );
+  }
+
+  if (!isAuthenticated) {
+    return null;
   }
 
   return (
@@ -123,7 +134,6 @@ export default function Home() {
                 <Title order={4}>Listening to 🎧:</Title>
 
                 <Card bg="green" w="100%" p="xs">
-
                   <Box className="flex">
                     <Image
                       src={
@@ -148,9 +158,7 @@ export default function Home() {
                   </Box>
                 </Card>
               </Flex>
-            ) : (
-              <></>
-            )}
+            ) : null}
           </Box>
         </Flex>
       </Group>
