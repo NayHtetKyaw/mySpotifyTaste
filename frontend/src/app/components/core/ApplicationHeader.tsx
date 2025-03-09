@@ -1,19 +1,12 @@
-import {
-  Burger,
-  Button,
-  Group,
-  Title,
-  Flex,
-  Box,
-  NavLink,
-} from "@mantine/core";
+import { Burger, Button, Title, Flex, Box, NavLink } from "@mantine/core";
 import { AppShell } from "@mantine/core";
 import Link from "next/link";
 import {
   IconInfoSquareRoundedFilled,
   IconHomeFilled,
 } from "@tabler/icons-react";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
+import { useAuth } from "@/app/auth/hooks/useAuth";
 
 interface ApplicationHeaderProps {
   opened: boolean;
@@ -44,6 +37,8 @@ export default function ApplicatoinHeader({
   opened,
   toggle,
 }: ApplicationHeaderProps) {
+  const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
+
   return (
     <AppShell.Header>
       <Flex justify="start" gap="sm" align="center" h="100%" px="sm" w="100%">
@@ -68,14 +63,17 @@ export default function ApplicatoinHeader({
             </Box>
           ))}
         </Flex>
-        <Button
-          color="green"
-          miw={100}
-          className="justify-self-end"
-          visibleFrom="sm"
-        >
-          Login
-        </Button>
+
+        <Link href={isAuthenticated ? "" : "/login"}>
+          <Button
+            color={isAuthenticated ? "yellow" : "green"}
+            miw={100}
+            className="justify-self-end"
+            visibleFrom="sm"
+          >
+            {isAuthenticated ? "Logout" : "Login"}
+          </Button>
+        </Link>
       </Flex>
     </AppShell.Header>
   );
