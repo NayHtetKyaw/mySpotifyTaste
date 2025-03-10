@@ -5,6 +5,7 @@ import {
   Group,
   Flex,
   Box,
+  Divider,
   Card,
   Title,
   Text,
@@ -160,6 +161,38 @@ export default function Home() {
               </Flex>
             ) : null}
           </Box>
+        </Flex>
+      </Group>
+
+      <Group>
+        <Title order={1} w="100%" className="text-center">
+          Overview
+        </Title>
+        <Flex justify="space-around" w="100%" wrap="wrap" gap="md">
+          <Card miw={350}>
+            <Title order={4}>Top Artists</Title>
+            <Divider size={2} my="sm" />
+            <Flex justify="start" align="center" gap="sm">
+              <Text>1.</Text>
+              <Avatar src="/assets/images/myspotifytaste.png"></Avatar>
+              <Box>
+                <Title order={6}>Map Map Map</Title>
+                <Text>Zutomayo</Text>
+              </Box>
+            </Flex>
+          </Card>
+          <Card miw={350}>
+            <Title order={4}>Top Songs</Title>
+            <Divider size={2} my="sm" />
+            <Flex justify="start" align="center" gap="sm">
+              <Text>1.</Text>
+              <Avatar src="/assets/images/myspotifytaste.png"></Avatar>
+              <Box>
+                <Title order={6}>Map Map Map</Title>
+                <Text>Zutomayo</Text>
+              </Box>
+            </Flex>
+          </Card>
         </Flex>
       </Group>
     </Container>
