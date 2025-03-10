@@ -5,7 +5,7 @@ import {
   IconInfoSquareRoundedFilled,
   IconHomeFilled,
 } from "@tabler/icons-react";
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import { useAuth } from "@/app/auth/hooks/useAuth";
 
 interface ApplicationHeaderProps {
@@ -37,7 +37,7 @@ export default function ApplicatoinHeader({
   opened,
   toggle,
 }: ApplicationHeaderProps) {
-  const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   return (
     <AppShell.Header>

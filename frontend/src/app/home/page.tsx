@@ -134,7 +134,7 @@ export default function Home() {
               <Flex mt="sm" direction="column" w="100%">
                 <Title order={4}>Listening to 🎧:</Title>
 
-                <Card bg="green" w="100%" p="xs">
+                <Card bg="green" w="100%" p="xs" miw={200}>
                   <Box className="flex">
                     <Image
                       src={
@@ -169,7 +169,7 @@ export default function Home() {
           Overview
         </Title>
         <Flex justify="space-around" w="100%" wrap="wrap" gap="md">
-          <Card miw={350}>
+          <Card miw={300}>
             <Title order={4}>Top Artists</Title>
             <Divider size={2} my="sm" />
             <Flex justify="start" align="center" gap="sm">
@@ -181,7 +181,7 @@ export default function Home() {
               </Box>
             </Flex>
           </Card>
-          <Card miw={350}>
+          <Card miw={300}>
             <Title order={4}>Top Songs</Title>
             <Divider size={2} my="sm" />
             <Flex justify="start" align="center" gap="sm">

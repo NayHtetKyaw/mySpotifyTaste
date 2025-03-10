@@ -8,7 +8,7 @@ interface MobileNavigationProps {
 }
 
 export default function MobileNavigation({ opened }: MobileNavigationProps) {
-  const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
+  const { isAuthenticated } = useAuth();
   return (
     <AppShell.Navbar hidden={!opened} hiddenFrom="sm">
       <Stack align="center" p="sm">
@@ -22,18 +22,15 @@ export default function MobileNavigation({ opened }: MobileNavigationProps) {
             />
           </Flex>
         ))}
-
-        <Link href={isAuthenticated ? "" : "/login"}>
-          <Button
-            color={isAuthenticated ? "yellow" : "green"}
-            miw={100}
-            className="justify-self-end"
-            visibleFrom="sm"
-          >
-            {isAuthenticated ? "Logout" : "Login"}
-          </Button>
-        </Link>
       </Stack>
+      <Link
+        href={isAuthenticated ? "" : "/login"}
+        className="flex justify-center"
+      >
+        <Button color={isAuthenticated ? "yellow" : "green"} w="80%">
+          {isAuthenticated ? "Logout" : "Login"}
+        </Button>
+      </Link>
     </AppShell.Navbar>
   );
 }
