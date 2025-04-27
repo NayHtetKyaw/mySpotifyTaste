@@ -1,6 +1,8 @@
-import Image from "next/image";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Disc3 } from "lucide-react";
+import { Flex, Text } from "@radix-ui/themes";
+import "@radix-ui/themes/styles.css";
+import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 
 export default function Home() {
 	return (
@@ -14,19 +16,24 @@ export default function Home() {
 				</BlurFade>
 				<BlurFade delay={0.25 * 2} inView>
 					<span className="text-xl text-pretty tracking-tighter sm:text-3xl xl:text-4xl/none">
-						Keep track of your taste on{" "}
-						<span className="text-green-200">spotify</span>
+						Keep track of your <span className="text-green-200">taste</span> on
+						<span className="text-green-200"> spotify</span>
 					</span>
 				</BlurFade>
 			</section>
-			<div className="text-center max-w-3xl mt-4">
-				Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur
-				earum magnam quis ad neque tenetur deleniti eveniet, mollitia, incidunt
-				eligendi, exercitationem aliquid. Nostrum excepturi vero quam velit
-				laudantium vitae! Enim tenetur aliquam quis quidem aspernatur blanditiis
-				facilis, fugit deserunt nemo dignissimos quam voluptas fugiat asperiores
-				vero animi delectus totam hic, non velit omnis veniam. Est quis debitis
-			</div>
+			<BlurFade className="max-w-3xl mt-4" delay={0.25 * 3.5} inView>
+				<Flex align={"center"}>
+					<Text size="4" align="center" wrap={"pretty"}>
+						An application that keeps track of your Spotify listening habits,
+						analyzes your music taste over time, and gives you insights into
+						your top songs, artists, and genres. Discover your trends, compare
+						different periods, and explore how your music preferences evolve!
+					</Text>
+				</Flex>
+			</BlurFade>
+			<BlurFade className="max-w-3xl mt-4" delay={0.25 * 4.5} inView>
+				<InteractiveHoverButton>Hover Me</InteractiveHoverButton>
+			</BlurFade>
 		</div>
 	);
 }

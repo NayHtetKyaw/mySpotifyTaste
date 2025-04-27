@@ -1,5 +1,6 @@
 "use client"
 
+import { Text } from "@radix-ui/themes";
 import { useRef } from "react"
 import {
   AnimatePresence,
