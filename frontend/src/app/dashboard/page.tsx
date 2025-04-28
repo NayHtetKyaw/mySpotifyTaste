@@ -5,6 +5,7 @@ import { useState } from "react";
 import ListeningTime from "@/components/ui/dashboard/listeningtime";
 import UniqueArtist from "@/components/ui/dashboard/uniquearts";
 import TopGenre from "@/components/ui/dashboard/topgenre";
+import TopTracks from "@/components/ui/dashboard/toptracks";
 
 export default function Dashboard() {
     const [selectedRange, setSelectedRange] = useState("Last 7 Days");
@@ -71,7 +72,14 @@ export default function Dashboard() {
                         <UniqueArtist />
                     </Grid>
                 </Flex>
+
+                <Flex mt="2.5rem">
+                    <Grid columns={{ initial: "1", sm: "2" }} gap="2.5rem" width="100%" height="auto">
+                        <TopTracks />
+                        <TopTracks />
+                    </Grid>
+                </Flex>
             </Section>
-        </Container >
+        </Container>
     );
 }
