@@ -34,12 +34,9 @@ export default function Home() {
 						weight={"bold"}
 					>
 						MySpotifyTaste{" "}
+						<Disc3 className="md:hidden inline animate-spin" size={32} />
 						<Disc3
-							className="md:hidden inline duration-[5s] animate-spin "
-							size={32}
-						/>
-						<Disc3
-							className="hidden md:inline duration-[5s] animate-spin "
+							className="hidden md:inline animate-[spin_3s_linear_infinite]"
 							size={48}
 						/>
 					</Heading>
