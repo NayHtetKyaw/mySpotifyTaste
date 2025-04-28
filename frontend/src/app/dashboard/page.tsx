@@ -55,11 +55,19 @@ export default function Dashboard() {
             </header> {/*Draft nav bar*/}
 
             <Section>
-                <Flex style={{ marginBottom: "1.25rem" }}>
-                    <Text size="6" className="font-bold pr-5 text-white">
+                <Flex
+                    style={{ marginBottom: "1.5rem" }}
+                    wrap={{ initial: "nowrap", sm: "wrap" }}
+                    direction={{ initial: "column", sm: "row" }}
+                    align={{ initial: "center", sm: "start" }}
+                >
+                    <Text
+                        align="center"
+                        size="6"
+                        className="font-bold pr-5 text-white"
+                    >
                         Your Listening Overview
                     </Text>
-
                     <DropdownMenu.Root>
                         <DropdownMenu.Trigger>
                             <Button
@@ -67,7 +75,9 @@ export default function Dashboard() {
                                 color="green"
                                 style={{
                                     backgroundColor: "var(--gray-3)",
+                                    width: "150px",
                                 }}
+                                mt={{ initial: "4", sm: "0" }}
                                 size="2"
                             >
                                 {selectedRange}
@@ -91,7 +101,7 @@ export default function Dashboard() {
                 <Flex>
                     <Grid
                         columns={{ initial: "1", sm: "3" }}
-                        gap="2rem"
+                        gap="2.5rem"
                         width="100%"
                         height="auto"
                     >
@@ -101,6 +111,6 @@ export default function Dashboard() {
                     </Grid>
                 </Flex>
             </Section>
-        </main>
+        </main >
     );
 }
