@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
+import Footer from "@/components/footer";
 
 
 const geistSans = Geist({
@@ -31,7 +31,9 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
 			>
-				<Theme>{children}</Theme>
+				<Theme>{children}
+					<Footer />
+				</Theme>
 			</body>
 		</html>
 	);

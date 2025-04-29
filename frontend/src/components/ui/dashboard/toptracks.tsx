@@ -27,7 +27,7 @@ export default function TopTracks() {
                         type="always"
                         scrollbars="vertical"
                         radius='medium'
-                        style={{ height: '200px', paddingRight: '8px', }}
+                        style={{ height: '280px', paddingRight: '8px', }}
                     >
                         <Flex direction="column" gap="4">
                             {tracks.map((track, index) => (
@@ -61,6 +61,7 @@ export default function TopTracks() {
             <Button
                 variant="outline"
                 color='green'
+                radius='full'
                 className="mt-4 w-full bg-neutral-700 text-white hover:bg-neutral-600 rounded-xl transition"
             >
                 View All Tracks

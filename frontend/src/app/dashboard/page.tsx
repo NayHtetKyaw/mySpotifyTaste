@@ -11,7 +11,7 @@ export default function Dashboard() {
     const [selectedRange, setSelectedRange] = useState("Last 7 Days");
 
     return (
-        <Container p={{ initial: "9", lg: "0" }} className="bg-neutral-900 bg-gradient-to-br from-neutral-900 to-neutral-950 min-h-screen">
+        <Container p={{ initial: "9", lg: "0" }} className="bg-neutral-900 bg-gradient-to-br from-neutral-900 to-neutral-950">
             <header className="bg-gray-700 h-16 rounded-3xl mx-10 flex items-center justify-center">
                 <span className="text-white font-bold">MySpotifyTaste (THIS IS DRAFT NAVBAR)</span>
             </header> {/*Draft nav bar*/}
