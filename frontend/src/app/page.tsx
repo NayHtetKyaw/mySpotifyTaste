@@ -28,6 +28,7 @@ export default function Home() {
 					<Heading
 						size={{
 							initial: "6",
+							xs: "8",
 							sm: "9",
 						}}
 						className="tracking-tighter mb-2 text-green-500"
@@ -44,10 +45,12 @@ export default function Home() {
 				<BlurFade delay={0.25 * 2} inView>
 					<Heading
 						size={{
-							initial: "5",
+							initial: "3",
+							xs: "7",
 							sm: "8",
 						}}
-						className="text-pretty tracking-tighter sm:text-3xl xl:text-4xl/none"
+						className="text-pretty tracking-tighter"
+						align={"center"}
 					>
 						Keep track of your{" "}
 						<Text as="span" className="text-green-400">
@@ -64,7 +67,8 @@ export default function Home() {
 					<Flex align={"center"}>
 						<Text
 							size={{
-								initial: "3",
+								initial: "1",
+								xs: "2",
 								sm: "4",
 							}}
 							weight={"regular"}
@@ -72,29 +76,31 @@ export default function Home() {
 							wrap={"pretty"}
 							className="hidden md:block"
 						>
-							An application that keeps track of your Spotify listening habits,
+							Application that keeps track of your Spotify listening habits,
 							analyzes your music taste over time, and gives you insights into
 							your top songs, artists, and genres. Discover your trends, compare
 							different periods, and explore how your music preferences evolve!
 						</Text>
 						<Text
 							size={{
-								initial: "3",
+								initial: "1",
+								xs: "2",
 								sm: "4",
 							}}
+							mx={"2"}
 							weight={"regular"}
 							align="center"
 							wrap={"pretty"}
-							className="block md:hidden max-w-sm"
+							className="block md:hidden max-w-xs text-pretty"
 						>
-							MySpotifyTaste is an application that tracks your Spotify
-							listening activity and helps you understand your evolving music
-							taste.
+							application that tracks your Spotify listening activity
 						</Text>
 					</Flex>
 				</BlurFade>
-				<BlurFade className="max-w-3xl mt-4" delay={0.25 * 4} inView>
-					<InteractiveHoverButton>Get Started</InteractiveHoverButton>
+				<BlurFade className="max-w-3xl mt-3" delay={0.25 * 4} inView>
+					<InteractiveHoverButton>
+						Get Started
+					</InteractiveHoverButton>
 				</BlurFade>
 			</Flex>
 		</Container>
