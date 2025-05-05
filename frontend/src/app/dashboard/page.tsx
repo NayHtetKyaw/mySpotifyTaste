@@ -14,7 +14,8 @@ import ListeningTime from "@/components/ui/dashboard/listeningtime";
 import UniqueArtist from "@/components/ui/dashboard/uniquearts";
 import TopGenre from "@/components/ui/dashboard/topgenre";
 import TopTracks from "@/components/ui/dashboard/toptracks";
-import History from "@/components/history";
+import History from "@/components/ui/dashboard/history";
+import Recommendations from "@/components/ui/dashboard/recommendations";
 
 export default function Dashboard() {
 	const [selectedRange, setSelectedRange] = useState("Last 7 Days");
@@ -107,6 +108,9 @@ export default function Dashboard() {
 			</Section>
 			<Section style={{ padding: "0rem", margin: "0rem" }}>
 				<History />
+			</Section>
+			<Section style={{ paddingTop: "2.5rem", margin: "0rem" }}>
+				<Recommendations />
 			</Section>
 		</Container>
 	);
