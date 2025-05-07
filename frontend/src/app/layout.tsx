@@ -5,7 +5,6 @@ import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import Footer from "@/components/footer";
 
-
 const geistSans = Geist({
 	variable: "--font-geist-sans",
 	subsets: ["latin"],
@@ -31,7 +30,8 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
 			>
-				<Theme>{children}
+				<Theme className="p-8">
+					{children}
 					<Footer />
 				</Theme>
 			</body>

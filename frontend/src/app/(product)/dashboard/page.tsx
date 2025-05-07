@@ -25,11 +25,12 @@ export default function Dashboard() {
 			p={{ initial: "5", sm: "7", lg: "9" }}
 			className="bg-neutral-900 bg-gradient-to-br from-neutral-900 to-neutral-950"
 		>
-			<header className="bg-gray-700 h-16 rounded-3xl mx-10 flex items-center justify-center">
-				<span className="text-white font-bold">
-					MySpotifyTaste (THIS IS DRAFT NAVBAR)
-				</span>
-			</header>{" "}
+			{/* <header className="bg-gray-700 h-16 rounded-3xl mx-10 flex items-center justify-center"> */}
+			{/* 	<span className="text-white font-bold"> */}
+			{/* 		MySpotifyTaste (THIS IS DRAFT NAVBAR) */}
+			{/* 	</span> */}
+			{/* </header>{" "} */}
+
 			{/*Draft nav bar*/}
 			{/* <Section style={{ paddingBottom: "0rem", marginBottom: "0rem" }}> */}
 			<Section>
