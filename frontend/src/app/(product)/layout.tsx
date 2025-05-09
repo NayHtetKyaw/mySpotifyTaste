@@ -11,7 +11,6 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<>
-<<<<<<< Updated upstream
 			<div className="pt-4 px-6">
 				<TabNav.Root>
 					<TabNav.Link href="#" active>
@@ -21,7 +20,6 @@ export default function RootLayout({
 					<TabNav.Link href="#">Settings</TabNav.Link>
 				</TabNav.Root>{" "}
 			</div>
-=======
 			<div className="relative">
 				<div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-black z-0"></div>
 				<div className="container mx-auto px-4 pt-12 pb-6 relative z-1">
@@ -93,7 +91,6 @@ export default function RootLayout({
 				<TabNav.Link href="#artist">Artists</TabNav.Link>
 				<TabNav.Link href="#song">Songs</TabNav.Link>
 			</TabNav.Root>{" "}
->>>>>>> Stashed changes
 			{children}
 		</>
 	);
