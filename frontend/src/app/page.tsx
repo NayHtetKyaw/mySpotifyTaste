@@ -1,10 +1,25 @@
+// "use client";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Disc3 } from "lucide-react";
 import { Container, Flex, Heading, Text } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
+import Link from "next/link";
 
 export default function Home() {
+	// async function handleLogin() {
+	// 	try {
+	// 		const response = await fetch(process.env.Backend_url + "/auth/login");
+	// 		if (!response) {
+	// 			throw new Error("response fail");
+	// 		}
+	// 		const data = await response.json();
+	// 		console.log(data);
+	// 	} catch (error) {
+	// 		console.log("login fail ", error);
+	// 	}
+	// }
+
 	return (
 		<Container className="relative ">
 			<Flex
@@ -26,7 +41,10 @@ export default function Home() {
 						weight={"bold"}
 					>
 						MySpotifyTaste{" "}
-						<Disc3 className="md:hidden inline animate-[spin_2s_linear_infinite]" size={32} />
+						<Disc3
+							className="md:hidden inline animate-[spin_2s_linear_infinite]"
+							size={32}
+						/>
 						<Disc3
 							className="hidden md:inline animate-[spin_2s_linear_infinite]"
 							size={48}
@@ -89,8 +107,12 @@ export default function Home() {
 					</Flex>
 				</BlurFade>
 				<BlurFade className="max-w-3xl mt-3" delay={0.25 * 4} inView>
-					<InteractiveHoverButton>
+					<InteractiveHoverButton 
+          // onClick={handleLogin}
+          >
+						<Link href={process.env.BACKEND_URL + "/auth/login"}>
 						Get Started
+						</Link>
 					</InteractiveHoverButton>
 				</BlurFade>
 			</Flex>

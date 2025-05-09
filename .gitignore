@@ -14,7 +14,10 @@ vendor/
 go.work
 
 # node modules
-/node_modules
+node_modules/
+
+# node modules
+.next/
 
 # IDE
 .vscode/

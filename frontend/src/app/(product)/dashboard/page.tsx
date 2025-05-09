@@ -40,7 +40,7 @@ export default function Dashboard() {
 
 	return (
 		<Container
-			p={{ initial: "5", sm: "7", lg: "9" }}
+			// p={{ initial: "5", sm: "7", lg: "9" }}
 			className="bg-neutral-900 bg-gradient-to-br from-neutral-900 to-neutral-950"
 		>
 			<Section>
