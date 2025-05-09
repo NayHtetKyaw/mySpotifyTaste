@@ -6,23 +6,14 @@ import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-b
 
 export default function Home() {
 	return (
-		<Container size={"2"} align={"left"} className="relative ">
+		<Container className="relative ">
 			<Flex
 				justify={"center"}
 				align={"center"}
 				direction={"column"}
-				// className="h-screen absolute inset-0 select-none bg-gradient-to-b from-black to-[#0a2a0a]"
 				className="h-screen absolute inset-0 select-none"
 			>
 				<div className="absolute top-0 z-[0] h-screen w-screen bg-black dark:bg-black bg-[radial-gradient(ellipse_35%_90%_at_50%_0%,rgba(119,198,120,0.3),rgba(255,255,255,0))] dark:bg-[radial-gradient(ellipse_20%_80%_at_50%_-20%,rgba(119, 198, 120, 0.3),rgba(255,255,255,0))]" />
-
-				{/* bright3 */}
-				{/* <div */}
-				{/* 	className="absolute top-0 z-[0] h-screen w-screen bg-black dark:bg-black */}
-				{/*  bg-[radial-gradient(ellipse_40%_80%_at_50%_-20%,rgba(119,198,120,0.6),rgba(255,255,255,0))]  */}
-				{/*  dark:bg-[radial-gradient(ellipse_40%_80%_at_50%_-20%,rgba(119,198,120,0.6),rgba(255,255,255,0))]  */}
-				{/*  " */}
-				{/* /> */}
 
 				<BlurFade delay={0.25} inView>
 					<Heading

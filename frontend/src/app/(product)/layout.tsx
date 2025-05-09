@@ -5,16 +5,16 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<>
-			<div className="">
-				<TabNav.Root className="">
+			<div className="pt-4 px-6">
+				<TabNav.Root>
 					<TabNav.Link href="#" active>
 						account
 					</TabNav.Link>
 					<TabNav.Link href="#">Documents</TabNav.Link>
 					<TabNav.Link href="#">Settings</TabNav.Link>
 				</TabNav.Root>{" "}
-				{children}
 			</div>
+			{children}
 		</>
 	);
 }

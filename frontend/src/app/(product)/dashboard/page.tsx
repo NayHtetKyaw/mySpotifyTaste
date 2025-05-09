@@ -18,21 +18,31 @@ import History from "@/components/ui/dashboard/history";
 import Recommendations from "@/components/ui/dashboard/recommendations";
 
 export default function Dashboard() {
-	const [selectedRange, setSelectedRange] = useState("Last 7 Days");
+	const timeRanges = [
+		{
+			label: "Short Term",
+			value: "short_term",
+		},
+		{
+			label: "Medium Term",
+			value: "medium_term",
+		},
+		{
+			label: "Long Term",
+			value: "long_term",
+		},
+	];
+
+	const [selectedRange, setSelectedRange] = useState({
+		label: "Short Term",
+		value: "short_term",
+	});
 
 	return (
 		<Container
 			p={{ initial: "5", sm: "7", lg: "9" }}
 			className="bg-neutral-900 bg-gradient-to-br from-neutral-900 to-neutral-950"
 		>
-			{/* <header className="bg-gray-700 h-16 rounded-3xl mx-10 flex items-center justify-center"> */}
-			{/* 	<span className="text-white font-bold"> */}
-			{/* 		MySpotifyTaste (THIS IS DRAFT NAVBAR) */}
-			{/* 	</span> */}
-			{/* </header>{" "} */}
-
-			{/*Draft nav bar*/}
-			{/* <Section style={{ paddingBottom: "0rem", marginBottom: "0rem" }}> */}
 			<Section>
 				<Flex
 					style={{ marginBottom: "1.5rem" }}
@@ -48,6 +58,7 @@ export default function Dashboard() {
 					>
 						Your Listening Overview
 					</Text>
+
 					<DropdownMenu.Root>
 						<DropdownMenu.Trigger>
 							<Button
@@ -59,25 +70,24 @@ export default function Dashboard() {
 								}}
 								mt={{ initial: "4", sm: "0" }}
 								size="2"
-							>
-								{selectedRange}
+							> {selectedRange.label}
 								<span style={{ marginLeft: "0.05rem" }}>▼</span>
 							</Button>
 						</DropdownMenu.Trigger>
 						<DropdownMenu.Content variant="soft" color="green">
-							<DropdownMenu.Item
-								onSelect={() => setSelectedRange("Last 7 Days")}
-							>
-								Last 7 Days
-							</DropdownMenu.Item>
-							<DropdownMenu.Item
-								onSelect={() => setSelectedRange("Last 30 Days")}
-							>
-								Last 30 Days
-							</DropdownMenu.Item>
-							<DropdownMenu.Item onSelect={() => setSelectedRange("All time")}>
-								All time
-							</DropdownMenu.Item>
+							{timeRanges.map((timeRange) => (
+								<DropdownMenu.Item
+									key={timeRange.value}
+									onSelect={() =>
+										setSelectedRange({
+											label: timeRange.label,
+											value: timeRange.value,
+										})
+									}
+								>
+									{timeRange.label}
+								</DropdownMenu.Item>
+							))}
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>
 				</Flex>
