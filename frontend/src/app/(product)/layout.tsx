@@ -2,6 +2,7 @@ import { TabNav } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { Card, CardContent } from "@/components/ui/card";
 import ProfileBanner from "@/components/profilebanner";
+import Navbar from "@/components/navbar";
 
 export default function RootLayout({
 	children,
@@ -9,14 +10,8 @@ export default function RootLayout({
 	return (
 		<>
 			<ProfileBanner />
-			<TabNav.Root className="">
-				<TabNav.Link href="#" active>
-					account
-				</TabNav.Link>
-				<TabNav.Link href="#dashboard">Dashboard</TabNav.Link>
-				<TabNav.Link href="#artist">Artists</TabNav.Link>
-				<TabNav.Link href="#song">Songs</TabNav.Link>
-			</TabNav.Root>{" "}
+			<Navbar />
+			{" "}
 			{children}
 		</>
 	);
