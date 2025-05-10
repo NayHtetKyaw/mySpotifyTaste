@@ -11,15 +11,6 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<>
-			<div className="pt-4 px-6">
-				<TabNav.Root>
-					<TabNav.Link href="#" active>
-						account
-					</TabNav.Link>
-					<TabNav.Link href="#">Documents</TabNav.Link>
-					<TabNav.Link href="#">Settings</TabNav.Link>
-				</TabNav.Root>{" "}
-			</div>
 			<div className="relative">
 				<div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-black z-0"></div>
 				<div className="container mx-auto px-4 pt-12 pb-6 relative z-1">
