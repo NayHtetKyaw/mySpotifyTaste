@@ -1,4 +1,5 @@
 "use client";
+import TimeRangeDrop from "@/components/timerangedrop";
 import {
 	Box,
 	Container,
@@ -54,20 +55,6 @@ const author = () => {
 	return (
 		<>
 			<Container size={"3"}>
-				{/* <Flex justify={"center"} align={"center"}> */}
-				{/* 	<Section> */}
-				{/* 		<Box */}
-				{/* 			width={{ */}
-				{/* 				initial: "480px", */}
-				{/* 				md: "768px", */}
-				{/* 				lg: "1024px", */}
-				{/* 			}} */}
-				{/* 			className="p-8" */}
-				{/* 		> */}
-				{/* 			hello */}
-				{/* 		</Box> */}
-				{/* 	</Section> */}
-				{/* </Flex> */}
 				<Flex justify={"center"} align={"center"}>
 					<Section>
 						<Flex
@@ -84,40 +71,7 @@ const author = () => {
 							>
 								Top Songs
 							</Heading>
-							<DropdownMenu.Root>
-								<DropdownMenu.Trigger>
-									<Button
-										variant="soft"
-										color="green"
-										style={{
-											backgroundColor: "var(--gray-3)",
-											width: "150px",
-										}}
-										mt={{ initial: "4", sm: "0" }}
-										size="2"
-									>
-										{selectedRange}
-										<span style={{ marginLeft: "0.05rem" }}>▼</span>
-									</Button>
-								</DropdownMenu.Trigger>
-								<DropdownMenu.Content variant="soft" color="green">
-									<DropdownMenu.Item
-										onSelect={() => setSelectedRange("Last 7 Days")}
-									>
-										Last 7 Days
-									</DropdownMenu.Item>
-									<DropdownMenu.Item
-										onSelect={() => setSelectedRange("Last 30 Days")}
-									>
-										Last 30 Days
-									</DropdownMenu.Item>
-									<DropdownMenu.Item
-										onSelect={() => setSelectedRange("All time")}
-									>
-										All time
-									</DropdownMenu.Item>
-								</DropdownMenu.Content>
-							</DropdownMenu.Root>
+							<TimeRangeDrop />
 						</Flex>
 						{datas.map((data, index) => {
 							return (
