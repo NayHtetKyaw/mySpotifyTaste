@@ -2,15 +2,15 @@ package main
 
 import (
 	"log"
+	"myspotifytaste/internal/auth"
+	"myspotifytaste/internal/middleware"
+	"myspotifytaste/spotify"
 	"net/http"
+	"net/url"
 	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-
-	"myspotifytaste/internal/auth"
-	"myspotifytaste/internal/middleware"
-	"myspotifytaste/spotify"
 )
 
 func main() {
@@ -21,6 +21,7 @@ func main() {
 	clientID := os.Getenv("SPOTIFY_CLIENT_ID")
 	clientSecret := os.Getenv("SPOTIFY_CLIENT_SECRET")
 	redirectURL := os.Getenv("SPOTIFY_REDIRECT_URI")
+	encodedRedirectURI := url.QueryEscape(redirectURL)
 	jwtSecret := os.Getenv("JWT_SECRET")
 	port := os.Getenv("PORT")
 
@@ -34,7 +35,8 @@ func main() {
 	}
 
 	// Initialize services
-	authService := auth.NewSpotifyAuthService(clientID, clientSecret, redirectURL, jwtSecret)
+	// authService := auth.NewSpotifyAuthService(clientID, clientSecret, redirectURL, jwtSecret)
+	authService := auth.NewSpotifyAuthService(clientID, clientSecret, encodedRedirectURI, jwtSecret)
 	spotifyService := spotify.NewService(clientID, clientSecret)
 
 	r := gin.Default()
@@ -91,6 +93,7 @@ func main() {
 	// Protected routes - IMPORTANT: Pass the api group to RegisterRoutes
 	protected := api.Group("") // Empty group to keep the /api prefix
 	protected.Use(middleware.AuthMiddleware(jwtSecret))
+
 	{
 		spotifyHandler := spotify.NewHandler(spotifyService)
 		spotifyHandler.RegisterRoutes(protected) // This will register under /api/spotify/...
