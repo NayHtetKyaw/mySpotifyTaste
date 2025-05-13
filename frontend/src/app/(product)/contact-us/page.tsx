@@ -44,7 +44,7 @@ export default function ContactUs() {
   }
 
   return (
-    <Container className="h-screen flex justify-center items-center">
+    <Container className="h-fit flex justify-center px-4 py-8 sm:px-8 md:px-16 lg:p-20">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
