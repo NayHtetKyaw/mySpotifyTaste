@@ -10,7 +10,7 @@ import {
 	DropdownMenu,
 	Button,
 } from "@radix-ui/themes";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const datas = [
 	{
@@ -52,6 +52,38 @@ const datas = [
 
 const author = () => {
 	const [selectedRange, setSelectedRange] = useState("Last 7 Days");
+	const [artist, setArtist] = useState([]);
+
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				const token = localStorage.getItem("token");
+				console.log(token);
+				const response = await fetch(
+					"http://127.0.0.1:8080/api/spotify/top-artists",
+					{
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: `Bearer ${token}`,
+						},
+					},
+				);
+
+				if (!response.ok) {
+					throw new Error("can't fetch artist");
+				}
+
+				const data = await response.json();
+				console.log(data);
+				setArtist(data);
+			} catch (error) {
+				console.log(error);
+			}
+		}
+
+		fetchData();
+	}, []);
 	return (
 		<>
 			<Container size={"3"}>
@@ -111,3 +143,4 @@ const author = () => {
 };
 
 export default author;
+

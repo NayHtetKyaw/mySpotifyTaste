@@ -4,6 +4,8 @@ import "./globals.css";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import Footer from "@/components/footer";
+import { Suspense } from "react";
+import LoaderOne from "@/components/ui/loader-one";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -31,7 +33,9 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
 			>
 				<Theme>
-					{children}
+					{/* <Suspense fallback={<LoaderOne />}> */}
+          {children}
+          {/* </Suspense> */}
 					<Footer />
 				</Theme>
 			</body>

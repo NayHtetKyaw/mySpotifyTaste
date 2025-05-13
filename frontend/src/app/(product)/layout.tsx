@@ -10,9 +10,7 @@ export default function RootLayout({
 	return (
 		<>
 			<ProfileBanner />
-			<Navbar />
-			{" "}
-			{children}
+			<Navbar /> {children}
 		</>
 	);
 }

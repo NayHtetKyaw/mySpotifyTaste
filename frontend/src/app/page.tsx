@@ -1,10 +1,10 @@
-// "use client";
+"use client";
 import { BlurFade } from "@/components/ui/blur-fade";
 import { Disc3 } from "lucide-react";
 import { Container, Flex, Heading, Text } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
-import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default function Home() {
 	// async function handleLogin() {
@@ -19,6 +19,13 @@ export default function Home() {
 	// 		console.log("login fail ", error);
 	// 	}
 	// }
+
+	const handleLogin = async () => {
+		const response = await fetch("http://127.0.0.1:8080/auth/login");
+		const result = await response.json();
+		console.log(result);
+		redirect(result?.login_url);
+	};
 
 	return (
 		<Container className="relative ">
@@ -107,12 +114,11 @@ export default function Home() {
 					</Flex>
 				</BlurFade>
 				<BlurFade className="max-w-3xl mt-3" delay={0.25 * 4} inView>
-					<InteractiveHoverButton 
-          // onClick={handleLogin}
-          >
-						<Link href={process.env.BACKEND_URL + "/auth/login"}>
+					<InteractiveHoverButton
+						// onClick={handleLogin}
+						onClick={handleLogin}
+					>
 						Get Started
-						</Link>
 					</InteractiveHoverButton>
 				</BlurFade>
 			</Flex>

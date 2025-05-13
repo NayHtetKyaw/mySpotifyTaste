@@ -1,5 +1,5 @@
 "use client";
-import { Suspense, use, useEffect } from "react";
+import { use, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import LoaderOne from "@/components/ui/loader-one";
 
@@ -23,22 +23,8 @@ export default function Page(props: {
 	}, [router, searchParams]);
 
 	return (
-      <LoaderOne />
+		<>
+			<LoaderOne />
+		</>
 	);
 }
-
-// import React from 'react'
-// import AuthLoad from "@/components/auth-load"
-// import { Suspense } from 'react'
-//
-// const page = () => {
-//   return (
-//     <div>
-//     <Suspense>
-//     <AuthLoad/>
-//     </Suspense>
-//     </div>
-//   )
-// }
-//
-// export default page
