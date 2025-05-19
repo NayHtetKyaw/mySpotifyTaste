@@ -16,29 +16,37 @@ export default function Page(props: {
 	useEffect(() => {
 		const token = searchParams.token;
 		if (token) {
-			// console.log(token);
+			console.log(token);
 			localStorage.setItem("token", token.toString());
 			router.push("/dashboard");
 		}
 	}, [router, searchParams]);
 
 	return (
-      <LoaderOne />
+		<div className="relative w-screen h-screen">
+			<LoaderOne className="absolute inset-0" />
+			{/* {searchParams.token} */}
+		</div>
 	);
 }
 
-// import React from 'react'
-// import AuthLoad from "@/components/auth-load"
-// import { Suspense } from 'react'
+// import { Suspense } from "react";
+// import TokenHandler from "@/components/Token-handler";
+// import LoaderOne from "@/components/ui/loader-one"; // import your spinner
 //
-// const page = () => {
-//   return (
-//     <div>
-//     <Suspense>
-//     <AuthLoad/>
-//     </Suspense>
-//     </div>
-//   )
+// type Params = { slug: string };
+// type SearchParams = { [key: string]: string | string[] | undefined };
+//
+// export default function Page({
+// 	params,
+// 	searchParams,
+// }: {
+// 	params: Params;
+// 	searchParams: SearchParams;
+// }) {
+// 	return (
+// 		<Suspense fallback={<LoaderOne />}>
+// 			<TokenHandler searchParams={searchParams} />
+// 		</Suspense>
+// 	);
 // }
-//
-// export default page

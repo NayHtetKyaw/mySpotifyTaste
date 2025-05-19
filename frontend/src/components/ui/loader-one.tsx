@@ -1,10 +1,13 @@
-'use client'
+"use client";
 import React from "react";
 import { motion } from "framer-motion";
 
-const LoaderOne = () => {
+const LoaderOne = ({ className = "", ...rest }: { className?: string }) => {
 	return (
-		<div className="flex items-center justify-center gap-1">
+		<div
+			className={`flex items-center justify-center gap-1 ${className}`}
+			{...rest}
+		>
 			{[...Array(3)].map((_, i) => (
 				<motion.div
 					key={i}
@@ -27,4 +30,3 @@ const LoaderOne = () => {
 };
 
 export default LoaderOne;
-

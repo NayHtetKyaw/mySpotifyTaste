@@ -6,7 +6,6 @@ import (
 	"myspotifytaste/internal/middleware"
 	"myspotifytaste/spotify"
 	"net/http"
-	"net/url"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -21,7 +20,7 @@ func main() {
 	clientID := os.Getenv("SPOTIFY_CLIENT_ID")
 	clientSecret := os.Getenv("SPOTIFY_CLIENT_SECRET")
 	redirectURL := os.Getenv("SPOTIFY_REDIRECT_URI")
-	encodedRedirectURI := url.QueryEscape(redirectURL)
+	// encodedRedirectURI := url.QueryEscape(redirectURL)
 	jwtSecret := os.Getenv("JWT_SECRET")
 	port := os.Getenv("PORT")
 
@@ -35,8 +34,8 @@ func main() {
 	}
 
 	// Initialize services
-	// authService := auth.NewSpotifyAuthService(clientID, clientSecret, redirectURL, jwtSecret)
-	authService := auth.NewSpotifyAuthService(clientID, clientSecret, encodedRedirectURI, jwtSecret)
+	authService := auth.NewSpotifyAuthService(clientID, clientSecret, redirectURL, jwtSecret)
+	// authService := auth.NewSpotifyAuthService(clientID, clientSecret, encodedRedirectURI, jwtSecret)
 	spotifyService := spotify.NewService(clientID, clientSecret)
 
 	r := gin.Default()
