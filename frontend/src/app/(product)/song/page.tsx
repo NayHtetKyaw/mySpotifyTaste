@@ -52,22 +52,32 @@ const datas = [
 ];
 
 const author = () => {
-  const token = localStorage.getItem("token");
-  console.log(token);
   useEffect(() => {
-    async function fetchData() {
-      const respond = await fetch("http://localhost:8080/spotify/top-tracks", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await respond.json();
-      console.log(data);
+    try {
+      async function fetchData() {
+        const token = localStorage.getItem("token");
+        const respond = await fetch(
+          "http://127.0.0.1:8080/api/spotify/top-tracks",
+          {
+
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+
+        const data = await respond.json();
+        console.log(data);
+      }
+
+      fetchData;
+    } catch (error) {
+      console.log(error);
+
     }
 
-    fetchData;
   }, []);
 
   const [selectedRange, setSelectedRange] = useState("Last 7 Days");
