@@ -33,15 +33,6 @@ const author = () => {
 				startTransition(async () => {
 					const token = localStorage.getItem("token");
 
-					// const response = await fetch("http://127.0.0.1:8080/auth/refresh", {
-					// 	headers: {
-					// 		"Content-Type": "application/json",
-					// 		Authorization: `Bearer ${token}`,
-					// 	},
-					// });
-					// const data = await response.json();
-					// console.log(data);
-
 					// console.log(token);
 					const response = await fetch(
 						"http://127.0.0.1:8080/api/spotify/top-artists",
