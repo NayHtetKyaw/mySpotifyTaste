@@ -2,7 +2,7 @@ import { Flex, Text } from '@radix-ui/themes';
 
 export default function UniqueArtist() {
     return (
-        <Flex className="bg-neutral-800 rounded-xl p-6 hover:shadow-lg hover:shadow-green-900/20 transition-all transform hover:-translate-y-1 hover:bg-neutral-750">
+        <Flex className="bg-white/5 rounded-xl p-6 border border-transparent transition-all duration-300 hover:bg-green-300/10 hover:-translate-y-1 transform will-change-transform">
             <Flex direction="column" gap="0.75rem">
                 <Text size="4" weight="bold">Unique Artists</Text>
                 <Text size="7" weight="bold" color="green">Zutomayo</Text>
