@@ -34,8 +34,8 @@ export default function RootLayout({
 			>
 				<Theme>
 					{/* <Suspense fallback={<LoaderOne />}> */}
-          {children}
-          {/* </Suspense> */}
+					{children}
+					{/* </Suspense> */}
 					<Footer />
 				</Theme>
 			</body>

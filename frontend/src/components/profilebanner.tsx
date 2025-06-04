@@ -6,7 +6,7 @@ import { Share2, Clock, Calendar, PlayCircle, BarChart3 } from "lucide-react";
 export default function ProfileBanner() {
     return (
         <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-black z-0"></div>
+            <div className="absolute inset-0 bg-gradient-to-b z-0"></div>
             <div className="container mx-auto px-4 pt-12 pb-6 relative z-1">
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
                     <Avatar className="h-40 w-40 rounded-full border-4 border-white/10 shadow-2xl">

@@ -1,83 +1,32 @@
 "use client";
 import TimeRangeDrop from "@/components/timerangedrop";
-import {
-  Box,
-  Container,
-  Flex,
-  Heading,
-  Section,
-  Text,
-  DropdownMenu,
-  Button,
-} from "@radix-ui/themes";
+import { Box, Container, Flex, Heading, Section, Text } from "@radix-ui/themes";
 import React, { useEffect, useState } from "react";
-import { effect } from "zod";
-
-const datas = [
-  {
-    images: "img",
-    name: "fuji",
-    followers: 10,
-    genres: "pop",
-    popularity: "100",
-  },
-  {
-    images: "img",
-    name: "aimer",
-    followers: 10,
-    genres: "pop",
-    popularity: "100",
-  },
-  {
-    images: "img",
-    name: "fuji",
-    followers: 10,
-    genres: "pop",
-    popularity: "100",
-  },
-  {
-    images: "img",
-    name: "fuji",
-    followers: 10,
-    genres: "pop",
-    popularity: "100",
-  },
-  {
-    images: "img",
-    name: "fuji",
-    followers: 10,
-    genres: "pop",
-    popularity: "100",
-  },
-];
 
 const author = () => {
+  const [tracks, setTracks] = useState<any[]>([]);
+
   useEffect(() => {
-    try {
-      async function fetchData() {
-        const token = localStorage.getItem("token");
-        const respond = await fetch(
-          "http://127.0.0.1:8080/api/spotify/top-tracks",
-          {
-
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
+    async function fetchData() {
+      const token = localStorage.getItem("token");
+      const respond = await fetch(
+        "http://127.0.0.1:8080/api/spotify/top-tracks",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
-        );
+        }
+      );
 
-        const data = await respond.json();
-        console.log(data);
-      }
+      const data = await respond.json();
 
-      fetchData;
-    } catch (error) {
-      console.log(error);
+      setTracks(data.tracks);
 
+      console.log(data);
     }
-
+    fetchData();
   }, []);
 
   const [selectedRange, setSelectedRange] = useState("Last 7 Days");
@@ -102,7 +51,8 @@ const author = () => {
               </Heading>
               <TimeRangeDrop />
             </Flex>
-            {datas.map((data, index) => {
+
+            {tracks.map((track, index) => {
               return (
                 <Box
                   width={{
@@ -120,13 +70,13 @@ const author = () => {
                   >
                     <div>
                       <Text className="">{index + 1}</Text>
-                      <Text>{data.images}</Text>
-                      <Text>{data.name}</Text>
+                      <Text>{track.images}</Text>
+                      <Text>{track.name}</Text>
                     </div>
                     <div>
-                      <Text>{data.followers}</Text>
-                      <Text>{data.genres}</Text>
-                      <Text>{data.popularity}</Text>
+                      <Text>{track.followers}</Text>
+                      <Text>{track.genres}</Text>
+                      <Text>{track.popularity}</Text>
                     </div>
                   </Flex>
                 </Box>

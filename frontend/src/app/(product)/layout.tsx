@@ -9,8 +9,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<>
-			<ProfileBanner />
-			<Navbar /> {children}
+			<div style={{ background: "linear-gradient(135deg, #031208 0%, #1a1a2e 30%, #16213e 70%, #0f3460 100%)" }}>
+				<ProfileBanner />
+				<Navbar />
+				{children}
+			</div>
 		</>
 	);
 }
