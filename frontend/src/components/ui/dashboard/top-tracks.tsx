@@ -6,6 +6,8 @@ const tracks = [
 	{ title: "Milabo", artist: "Zutomayo", plays: 870 },
 	{ title: "Study Me", artist: "Zutomayo", plays: 760 },
 	{ title: "Hamaguri Bonbon", artist: "Zutomayo", plays: 680 },
+	{ title: "Dear Mr. F", artist: "Zutomayo", plays: 650 },
+	{ title: "Kuraku Kuroku", artist: "Zutomayo", plays: 600 },
 ];
 
 const thumbnail = "";
@@ -17,12 +19,12 @@ export default function TopTracks() {
 			direction="column"
 			gap="4"
 		>
-			<Text size="4" weight="bold">
+			<Text size="6" weight="bold">
 				Top Tracks
 			</Text>
 
 			<Box>
-				<Card variant="classic" className="bg-white/1 p-4 rounded-2xl">
+				<Card variant="classic" className="bg-white/1 p-4 mt-4 rounded-2xl">
 					<Flex direction="column" gap="4">
 						{tracks.map((track, index) => (
 							<Flex
