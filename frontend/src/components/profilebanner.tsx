@@ -1,27 +1,31 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
+import * as Avatar from "@radix-ui/react-avatar";
 import { Button } from "@/components/ui/button";
-import { Share2, Clock, Calendar, PlayCircle, BarChart3 } from "lucide-react";
+import { Share2, PlayCircle } from "lucide-react";
+import { Container } from "@radix-ui/themes";
+import React from "react";
 
 export default function ProfileBanner() {
     return (
-        <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-b z-0"></div>
-            <div className="container mx-auto px-4 pt-12 pb-6 relative z-1">
+        <Container maxWidth="1600px">
+            <div className="bg-black/15 p-8 mt-10 border border-white/10 rounded-xl shadow-lg flex flex-col">
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-                    <Avatar className="h-40 w-40 rounded-full border-4 border-white/10 shadow-2xl">
-                        <AvatarImage src="/placeholder.svg" />
-                        <AvatarFallback className="text-5xl">L</AvatarFallback>
-                    </Avatar>
+                    <Avatar.Root className="h-40 w-40 rounded-full border-4 border-white/10 shadow-2xl flex items-center justify-center">
+                        <Avatar.Image
+                            src="/placeholder.svg"
+                            className="h-full w-full rounded-full"
+                        />
+                        <Avatar.Fallback className="text-5xl">L</Avatar.Fallback>
+                    </Avatar.Root>
 
                     <div className="flex-1 text-center md:text-left">
                         <div className="flex flex-col md:flex-row md:items-center gap-4 mb-4">
                             <h1 className="text-5xl font-bold">Long</h1>
                             <Button
                                 variant="outline"
-                                className="rounded-full border-white/20 bg-white/5 hover:bg-white/10"
+                                className="rounded-full border-white/20 bg-white/5 hover:bg-white/10 flex items-center"
                             >
                                 <span className="mr-2">Open in Spotify</span>
+                                {/* Spotify Icon */}
                                 <svg
                                     viewBox="0 0 24 24"
                                     className="h-5 w-5"
@@ -33,30 +37,21 @@ export default function ProfileBanner() {
                         </div>
 
                         <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-6">
-                            <Badge
-                                variant="secondary"
-                                className="bg-white/10 hover:bg-white/20"
-                            >
+                            <span className="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-sm font-medium">
                                 2,453 Followers
-                            </Badge>
-                            <Badge
-                                variant="secondary"
-                                className="bg-white/10 hover:bg-white/20"
-                            >
+                            </span>
+                            <span className="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-sm font-medium">
                                 Electronic
-                            </Badge>
-                            <Badge
-                                variant="secondary"
-                                className="bg-white/10 hover:bg-white/20"
-                            >
+                            </span>
+                            <span className="px-3 py-1 rounded-full bg-white/10 hover:bg-white/20 text-sm font-medium">
                                 Ambient
-                            </Badge>
+                            </span>
                         </div>
 
                         <div className="flex justify-center md:justify-start gap-2">
                             <Button
                                 variant="default"
-                                className="rounded-full bg-purple-600 hover:bg-purple-700"
+                                className="rounded-full bg-purple-600 hover:bg-purple-700 flex items-center"
                             >
                                 <PlayCircle className="mr-2 h-4 w-4" /> Play Latest
                             </Button>
@@ -67,6 +62,6 @@ export default function ProfileBanner() {
                     </div>
                 </div>
             </div>
-        </div>
+        </Container>
     );
 }
