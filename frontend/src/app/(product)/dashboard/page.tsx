@@ -18,39 +18,40 @@ import TimeRangeDrop from "@/components/timerangedrop";
 export default function Dashboard() {
 
 	return (
-		<Container>
+		<Container maxWidth="1600px">
 			<Section>
-				<Flex
-					style={{ marginBottom: "1.5rem" }}
-					wrap={{ initial: "nowrap", sm: "wrap" }}
-					direction={{ initial: "column", sm: "row" }}
-					align={{ initial: "center", sm: "start" }}
-				>
-					<Text
-						align="center"
-						size="6"
-						weight={"bold"}
-						className=" pr-5 text-white"
+				<Section className="border border-white/10 bg-white/2 rounded-xl"
+					style={{ padding: "2rem", marginBottom: "2rem" }}>
+					<Flex
+						style={{ marginBottom: "1.5rem" }}
+						wrap={{ initial: "nowrap", sm: "wrap" }}
+						direction={{ initial: "column", sm: "row" }}
+						align={{ initial: "center", sm: "start" }}
 					>
-						Your Listening Overview
-					</Text>
-					<TimeRangeDrop />
-				</Flex>
+						<Text
+							align="center"
+							size="6"
+							weight={"bold"}
+							className=" pr-5 text-white"
+						>
+							Your Listening Overview
+						</Text>
+						<TimeRangeDrop />
+					</Flex>
 
-
-
-				<Flex>
-					<Grid
-						columns={{ initial: "1", sm: "3" }}
-						gap="2.5rem"
-						width="100%"
-						height="auto"
-					>
-						<ListeningTime />
-						<TopGenre />
-						<UniqueArtist />
-					</Grid>
-				</Flex>
+					<Flex>
+						<Grid
+							columns={{ initial: "1", sm: "3" }}
+							gap="2.5rem"
+							width="100%"
+							height="auto"
+						>
+							<ListeningTime />
+							<TopGenre />
+							<UniqueArtist />
+						</Grid>
+					</Flex>
+				</Section>
 
 				<Flex mt="2.5rem">
 					<Grid

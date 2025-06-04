@@ -13,7 +13,7 @@ const thumbnail = "";
 export default function TopTracks() {
 	return (
 		<Flex
-			className="bg-neutral-800 rounded-xl p-6 hover:shadow-lg hover:shadow-green-900/20"
+			className="border border-white/10 bg-white/2 rounded-xl p-8"
 			direction="column"
 			gap="4"
 		>
@@ -22,14 +22,14 @@ export default function TopTracks() {
 			</Text>
 
 			<Box>
-				<Card variant="classic" className="bg-neutral-900 p-4 rounded-2xl">
+				<Card variant="classic" className="bg-white/1 p-4 rounded-2xl">
 					<Flex direction="column" gap="4">
 						{tracks.map((track, index) => (
 							<Flex
 								key={index}
 								align="center"
 								justify="between"
-								className="hover:bg-neutral-800 p-2 rounded-lg transition"
+								className="hover:bg-white/3 p-2 rounded-lg transition"
 							>
 								<Flex align="center" gap="3">
 									<Text color="gray" size="2">
