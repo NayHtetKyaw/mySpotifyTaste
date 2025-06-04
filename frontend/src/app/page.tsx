@@ -9,7 +9,8 @@ import { redirect } from "next/navigation";
 export default function Home() {
 	// async function handleLogin() {
 	// 	try {
-	// 		const response = await fetch(process.env.Backend_url + "/auth/login");
+	// 		const response = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL + "/auth/login");
+	//      console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
 	// 		if (!response) {
 	// 			throw new Error("response fail");
 	// 		}
@@ -114,12 +115,13 @@ export default function Home() {
 					</Flex>
 				</BlurFade>
 				<BlurFade className="max-w-3xl mt-3" delay={0.25 * 4} inView>
+        {/* <a href="http://127.0.0.1:8080/auth/login"> */}
 					<InteractiveHoverButton
-						// onClick={handleLogin}
 						onClick={handleLogin}
 					>
 						Get Started
 					</InteractiveHoverButton>
+					{/*    </a> */}
 				</BlurFade>
 			</Flex>
 		</Container>
