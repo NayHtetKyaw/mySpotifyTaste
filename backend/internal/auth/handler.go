@@ -41,6 +41,7 @@ func (h *AuthHandler) Login(c *gin.Context) {
 	// 	"login_url": url,
 	// 	"state":     state,
 	// })
+
 	c.Writer.Header().Set("Content-Type", "application/json")
 	encoder := json.NewEncoder(c.Writer)
 	encoder.SetEscapeHTML(false)
@@ -49,11 +50,13 @@ func (h *AuthHandler) Login(c *gin.Context) {
 		"login_url": url,
 		"state":     state,
 	})
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to encode response"})
 	}
 
 	// c.String(http.StatusOK, url)
+	c.String(http.StatusInternalServerError, url)
 }
 
 func (h *AuthHandler) Callback(c *gin.Context) {

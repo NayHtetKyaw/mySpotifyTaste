@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"myspotifytaste/internal/auth"
 	"myspotifytaste/internal/middleware"
@@ -23,6 +24,8 @@ func main() {
 	// encodedRedirectURI := url.QueryEscape(redirectURL)
 	jwtSecret := os.Getenv("JWT_SECRET")
 	port := os.Getenv("PORT")
+
+  fmt.Println(clientID)
 
 	// Validate required environment variables
 	if clientID == "" || clientSecret == "" || redirectURL == "" || jwtSecret == "" {
