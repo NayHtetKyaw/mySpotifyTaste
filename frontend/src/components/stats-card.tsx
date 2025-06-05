@@ -22,7 +22,7 @@ export function StatsCard({
 	],
 }: StatsCardProps) {
 	return (
-		<div className="w-full h-full bg-neutral-900 rounded-lg p-4 text-white   ">
+		<div className="w-full h-full bg-white/4 rounded-lg p-4 text-white   ">
 			<div className="flex flex-col space-y-4">
 				<div className="flex flex-col items-center  justify-center gap-2">
 					<span className="text-3xl font-bold">+{percentage}%</span>
