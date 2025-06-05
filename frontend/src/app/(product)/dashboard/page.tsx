@@ -8,10 +8,11 @@ import TopTracks from "@/components/ui/dashboard/top-tracks";
 import History from "@/components/ui/dashboard/history";
 import TimeRangeDrop from "@/components/timerangedrop";
 import RecentlyPlayedBox from "@/components/ui/dashboard/recently";
+import { init } from "next/dist/compiled/webpack/webpack";
 
 export default function Dashboard() {
   return (
-    <Container maxWidth="1600px">
+    <Container maxWidth="1600px" p={{ initial: "15px", sm: "0rem" }}>
       <Section>
         <Section
           className="border border-white/10 bg-white/2 rounded-xl"

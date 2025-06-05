@@ -42,11 +42,11 @@ const History = () => {
           Listening History
         </Text>
       </Flex>
-      <Grid
+
+      <Flex
         mt={"2.5rem"}
-        // columns={"calc(60% - 1.25rem) calc(40% - 1.25rem)"}
-        columns={"3fr 2fr"}
         gap={"2.5rem"}
+        direction={{ initial: "column", sm: "row" }}
       >
         <Flex
           className="bg-white/2 border border-white/10 rounded-xl"
@@ -142,7 +142,7 @@ const History = () => {
             />
           </div>
         </Flex>
-      </Grid>
+      </Flex>
     </>
   );
 };
