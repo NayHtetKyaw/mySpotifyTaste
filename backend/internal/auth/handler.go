@@ -56,7 +56,7 @@ func (h *AuthHandler) Login(c *gin.Context) {
 	}
 
 	// c.String(http.StatusOK, url)
-	c.String(http.StatusInternalServerError, url)
+	// c.String(http.StatusInternalServerError, url)
 }
 
 func (h *AuthHandler) Callback(c *gin.Context) {

@@ -31,7 +31,7 @@ const History = () => {
   return (
     <>
       <Flex>
-        <Music2 color="#3ED68C" className="inline" />
+        <Music2 color="#4763C0" className="inline" />
         <Text
           ml={"0.5rem"}
           align="center"
@@ -60,7 +60,7 @@ const History = () => {
           <Box pb="4">
             <CircleSmall
               size={36}
-              color="#3ED68C"
+              color="#4763C0"
               strokeWidth={3}
               className="inline"
             />
@@ -114,7 +114,7 @@ const History = () => {
           <Box pb="4">
             <CalendarDays
               size={26}
-              color="#3ED68C"
+              color="#4763C0"
               strokeWidth={3}
               className="inline"
             />

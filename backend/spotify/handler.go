@@ -40,8 +40,8 @@ func (h *Handler) RegisterRoutes(r *gin.RouterGroup) {
 	spotify := r.Group("/spotify")
 	{
 		spotify.GET("/now-playing", h.GetCurrentlyPlaying)
-		spotify.GET("/top-tracks", h.GetTopTracks)
-		spotify.GET("/top-artists", h.GetTopArtists)
+		spotify.GET("/top-tracks/:range", h.GetTopTracks)
+		spotify.GET("/top-artists/:range", h.GetTopArtists)
 		spotify.GET("/recently-played", h.GetRecentlyPlayed)
 		spotify.GET("/me", h.GetUserProfile)
 
@@ -76,13 +76,14 @@ func (h *Handler) GetCurrentlyPlaying(c *gin.Context) {
 
 // GetTopTracks gets the user's top tracks
 func (h *Handler) GetTopTracks(c *gin.Context) {
+	param := c.Param("range")
 	token, exists := c.Get("spotify_token")
 	if !exists {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "No Spotify token available"})
 		return
 	}
 
-	timeRange := c.DefaultQuery("time_range", "medium_term")
+	timeRange := c.DefaultQuery("time_range", param)
 	limitStr := c.DefaultQuery("limit", "20")
 	limit, err := strconv.Atoi(limitStr)
 	if err != nil || limit <= 0 || limit > 50 {
@@ -103,13 +104,14 @@ func (h *Handler) GetTopTracks(c *gin.Context) {
 
 // GetTopArtists gets the user's top artists
 func (h *Handler) GetTopArtists(c *gin.Context) {
+	Range := c.Param("range")
 	token, exists := c.Get("spotify_token")
 	if !exists {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "No Spotify token available"})
 		return
 	}
 
-	timeRange := c.DefaultQuery("time_range", "medium_term")
+	timeRange := c.DefaultQuery("time_range", Range)
 	limitStr := c.DefaultQuery("limit", "20")
 	limit, err := strconv.Atoi(limitStr)
 	if err != nil || limit <= 0 || limit > 50 {

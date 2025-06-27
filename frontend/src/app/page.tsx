@@ -4,9 +4,10 @@ import { Disc3 } from "lucide-react";
 import { Container, Flex, Heading, Text } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter()
   const handleLogin = async () => {
     try {
       const response = await fetch(
@@ -18,7 +19,7 @@ export default function Home() {
       }
       const result = await response.json();
       console.log(result);
-      redirect(result?.login_url);
+      router.push(result!.login_url);
       // window.location.href = result?.login_url;
       // decodeURIComponent((window.location.href = result?.login_url));
     } catch (error) {

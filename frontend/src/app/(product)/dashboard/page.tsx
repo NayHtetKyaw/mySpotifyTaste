@@ -9,10 +9,18 @@ import History from "@/components/ui/dashboard/history";
 import TimeRangeDrop from "@/components/timerangedrop";
 import RecentlyPlayedBox from "@/components/ui/dashboard/recently";
 import { init } from "next/dist/compiled/webpack/webpack";
+import { useState } from "react";
 
 export default function Dashboard() {
+  const [selectedRange, setSelectedRange] = useState<{
+    label: string;
+    value: string;
+  }>({
+    label: "Short Term",
+    value: "short_term",
+  });
   return (
-    <Container maxWidth="1600px" p={{ initial: "15px", sm: "0rem" }}>
+    <Container maxWidth="1600px" px={{ initial: "2px", sm: "4rem" }}>
       <Section>
         <Section
           className="border border-white/10 bg-white/2 rounded-xl"
@@ -32,7 +40,10 @@ export default function Dashboard() {
             >
               Your Listening Overview
             </Text>
-            <TimeRangeDrop />
+            <TimeRangeDrop
+              selectedRange={selectedRange}
+              setSelectedRange={setSelectedRange}
+            />
           </Flex>
 
           <Flex>
