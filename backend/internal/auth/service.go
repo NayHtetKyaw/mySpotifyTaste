@@ -5,6 +5,7 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -58,6 +59,7 @@ func (s *SpotifyAuthService) GetAuthURL() (string, string, error) {
 	state := base64.URLEncoding.EncodeToString(b)
 	s.stateStore[state] = time.Now().Add(15 * time.Minute)
 	url := s.authenticator.AuthURL(state)
+  fmt.Print("this is url222222:",url)
 	return url, state, nil
 }
 

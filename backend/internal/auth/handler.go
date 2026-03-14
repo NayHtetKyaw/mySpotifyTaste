@@ -37,10 +37,26 @@ func (h *AuthHandler) Login(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{
+	// c.JSON(http.StatusOK, gin.H{
+	// 	"login_url": url,
+	// 	"state":     state,
+	// })
+
+	c.Writer.Header().Set("Content-Type", "application/json")
+	encoder := json.NewEncoder(c.Writer)
+	encoder.SetEscapeHTML(false)
+
+	err = encoder.Encode(gin.H{
 		"login_url": url,
 		"state":     state,
 	})
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to encode response"})
+	}
+
+	// c.String(http.StatusOK, url)
+	// c.String(http.StatusInternalServerError, url)
 }
 
 func (h *AuthHandler) Callback(c *gin.Context) {
@@ -62,7 +78,6 @@ func (h *AuthHandler) Callback(c *gin.Context) {
 	// 	return
 	// }
 
-
 	token, user, err := h.service.Exchange(c, code, state)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -76,6 +91,7 @@ func (h *AuthHandler) Callback(c *gin.Context) {
 	}
 
 	frontendURL := "http://localhost:3000/auth/callback"
+	// frontendURL := "http://localhost:3000/dashboard"
 	if redirectURL != "" {
 		frontendURL = redirectURL
 	}
@@ -87,7 +103,6 @@ func (h *AuthHandler) Callback(c *gin.Context) {
 	// 	"token": jwtToken,
 	// 	"user":  user,
 	// })
-
 }
 
 func encodeUserToJSON(user *User) string {
